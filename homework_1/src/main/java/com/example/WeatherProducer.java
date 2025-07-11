@@ -9,19 +9,22 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class WeatherProducer {
   public static void main(String[] args) throws Exception {
-    final Producer<String, String> producer =
-        new KafkaProducer<>(Map.of(BOOTSTRAP_SERVERS, System.getenv(BOOTSTRAP_SERVERS)),
-            new StringSerializer(), new StringSerializer());
+    try (final Producer<String, String> producer =
+             new KafkaProducer<>(Map.of(BOOTSTRAP_SERVERS, System.getenv(BOOTSTRAP_SERVERS)),
+                 new StringSerializer(), new StringSerializer())) {
+      // producer.send(new ProducerRecord<>(TOPIC,"DUMMY",null)).get(20, TimeUnit.SECONDS); // Force
+      // topic creation
 
-    // producer.send(new ProducerRecord<>(TOPIC,"DUMMY",null)).get(20, TimeUnit.SECONDS); // Force
-    // topic creation
+      Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(
+          ()
+              -> producer.send(
+                  new ProducerRecord<>(TOPIC, "key-" + ThreadLocalRandom.current().nextInt(10),
+                      "val-" + ThreadLocalRandom.current().nextInt())),
+          0, 100, TimeUnit.MILLISECONDS);
 
-    Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(
-        ()
-            -> producer.send(
-                new ProducerRecord<>(TOPIC, "key-" + ThreadLocalRandom.current().nextInt(10),
-                    "val-" + ThreadLocalRandom.current().nextInt())),
-        0, 100, TimeUnit.MILLISECONDS);
+    } catch (Exception e) {
+      System.err.println("Exception: " + e.getMessage());
+    }
   }
 
   static final String BOOTSTRAP_SERVERS = "bootstrap.servers";

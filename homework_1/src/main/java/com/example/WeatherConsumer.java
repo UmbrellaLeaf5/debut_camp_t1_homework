@@ -7,14 +7,17 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class WeatherConsumer {
   public static void main(String[] args) throws Exception {
-    final KafkaConsumer<String, String> consumer =
-        new KafkaConsumer<>(Map.of(BOOTSTRAP_SERVERS, System.getenv(BOOTSTRAP_SERVERS), GROUP_ID,
-                                System.getenv(GROUP_ID), AUTO_OFFSET_RESET, "earliest"),
-            new StringDeserializer(), new StringDeserializer());
+    try (final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(
+             Map.of(BOOTSTRAP_SERVERS, System.getenv(BOOTSTRAP_SERVERS), GROUP_ID,
+                 System.getenv(GROUP_ID), AUTO_OFFSET_RESET, "earliest"),
+             new StringDeserializer(), new StringDeserializer())) {
+      consumer.subscribe(List.of(TOPIC));
 
-    consumer.subscribe(List.of(TOPIC));
-    while (true) {
-      consumer.poll(1000).spliterator().forEachRemaining(System.out::println);
+      while (true) consumer.poll(1000).spliterator().forEachRemaining(System.out::println);
+
+    } catch (Exception e) {
+      System.err.println("Exception: " + e.getMessage());
+      return;
     }
   }
 
