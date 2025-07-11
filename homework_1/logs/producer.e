@@ -1,0 +1,9 @@
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
+Producer fatal error: Missing required configuration "key.serializer" which has no default value.
