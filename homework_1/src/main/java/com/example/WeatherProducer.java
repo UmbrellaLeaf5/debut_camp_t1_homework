@@ -20,7 +20,7 @@ public class WeatherProducer {
     try {
       // -------------------------- config --------------------------
 
-      config = AppConfig.load("config.json");
+      config = AppConfig.load("/app/config.json");
 
       Map<String, Object> producerConfig = new HashMap<>();
       producerConfig.put("bootstrap.servers", config.getKafka().get("bootstrapServers"));

@@ -28,6 +28,8 @@ services:
     restart: unless-stopped
     depends_on:
       - kafka
+    volumes:
+      - ./config.json:/app/config.json
 
   producer:
     build:
@@ -40,3 +42,5 @@ services:
     restart: unless-stopped
     depends_on:
       - kafka
+    volumes:
+      - ./config.json:/app/config.json

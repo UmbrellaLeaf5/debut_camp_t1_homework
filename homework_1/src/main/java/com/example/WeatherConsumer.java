@@ -24,7 +24,7 @@ public class WeatherConsumer {
     try {
       // -------------------------- config --------------------------
 
-      config = AppConfig.load("config.json");
+      config = AppConfig.load("/app/config.json");
 
       Map<String, Object> consumerConfig = new HashMap<>();
 
