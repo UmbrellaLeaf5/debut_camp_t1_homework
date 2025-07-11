@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.List;
 import java.util.Map;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -13,7 +15,12 @@ public class WeatherConsumer {
              new StringDeserializer(), new StringDeserializer())) {
       consumer.subscribe(List.of(TOPIC));
 
-      while (true) consumer.poll(1000).spliterator().forEachRemaining(System.out::println);
+      while (true) {
+        ConsumerRecords<String, String> records = consumer.poll(1000);
+
+        for (ConsumerRecord<String, String> record : records)
+          System.out.printf("Received message: key=%s, value=%s%n", record.key(), record.value());
+      }
 
     } catch (Exception e) {
       System.err.println("Exception: " + e.getMessage());

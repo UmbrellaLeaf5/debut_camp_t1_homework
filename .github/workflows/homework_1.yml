@@ -42,30 +42,32 @@ jobs:
           sudo apt-get install -y docker-compose
           docker-compose --version
 
-      # - name: Start
-      #   working-directory: ./homework_1
-      #   run: |
-      #     docker-compose up -d
-
       # Запуск инфраструктуры (Kafka + Zookeeper)
       - name: Start Kafka infrastructure
         working-directory: ./homework_1
         run: |
           docker-compose up -d zookeeper kafka
-          sleep 30
+          # Ожидание полной готовности Kafka
+          timeout 180 bash -c 'until docker-compose exec -t kafka kafka-topics --list --bootstrap-server kafka:9092; do sleep 10; echo "Waiting for Kafka..."; done'
+          # Явное создание топика
+          docker-compose exec -t kafka kafka-topics --create --topic $KAFKA_TOPIC --partitions 1 --replication-factor 1 --bootstrap-server kafka:9092 || true
+          # Проверка топика
+          docker-compose exec -t kafka kafka-topics --describe --topic $KAFKA_TOPIC --bootstrap-server kafka:9092
 
       # Запуск продюсера и консьюмера
       - name: Run Producer and Consumer
         working-directory: ./homework_1
         run: |
           docker-compose up -d producer consumer
-          sleep 10
+          sleep 30
 
       - name: Checking Logs
         working-directory: ./homework_1
         run: |
-          docker-compose logs --tail=50 kafka
+          docker-compose ps -a
+          echo "=== Kafka logs ==="
+          docker-compose logs --tail=20 kafka
+          echo "=== Consumer logs ==="
           docker-compose logs --tail=50 consumer
+          echo "=== Producer logs ==="
           docker-compose logs --tail=50 producer
-          docker ps
-          docker-compose ps
