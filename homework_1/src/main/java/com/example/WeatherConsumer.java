@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-public class MyConsumer {
+public class WeatherConsumer {
   public static void main(String[] args) throws Exception {
     final KafkaConsumer<String, String> consumer =
         new KafkaConsumer<>(Map.of(BOOTSTRAP_SERVERS, System.getenv(BOOTSTRAP_SERVERS), GROUP_ID,
