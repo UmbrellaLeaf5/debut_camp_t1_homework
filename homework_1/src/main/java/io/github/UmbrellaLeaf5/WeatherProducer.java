@@ -19,15 +19,25 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+/**
+ * Producer для генерации и отправки данных о погоде в Kafka.
+ * Генерирует случайные данные о погоде для разных городов.
+ */
 public class WeatherProducer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
+
+  private static AppConfig config = null;
+
+  private static String outputFile; // файл для вывода отчетов
+  private static String errorFile; // файл для вывода ошибок
+
   private static final DateTimeFormatter DATE_FORMAT =
       DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
-  private static AppConfig config = null;
-  private static String outputFile;
-  private static String errorFile;
-
+  /**
+   * Основной метод Producer'а. Настраивает и запускает периодическую отправку данных.
+   * @param args (String[]): аргументы командной строки.
+   */
   public static void main(String[] args) {
     try {
       Map<String, Object> producerConfig = new HashMap<>();
@@ -58,6 +68,7 @@ public class WeatherProducer {
       try (Producer<String, String> producer = new KafkaProducer<>(producerConfig)) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
+        // периодическая отправка данных
         executor.scheduleAtFixedRate(() -> {
           WeatherData weather = generateWeeklyWeather();
           try {
@@ -79,7 +90,7 @@ public class WeatherProducer {
           }
         }, 0, delay, TimeUnit.SECONDS);
 
-        while (true) Thread.sleep(sleepDelay);
+        for (;;) Thread.sleep(sleepDelay);
       }
     } catch (Exception e) {
       FileLogger.printToFile("Producer fatal error: " + e.getMessage(), errorFile);
@@ -87,6 +98,14 @@ public class WeatherProducer {
     }
   }
 
+  /**
+   * Генерирует случайные данные о погоде за неделю для случайного города.
+   * Использует настройки из конфигурации: список городов, погодные условия и диапазон температур.
+   *
+   * @return WeatherData: объект с данными о погоде, содержащий:
+   *         - город (выбранный случайным образом из конфигурации)
+   *         - список ежедневных данных о погоде (условия, температура, дата)
+   */
   @SuppressWarnings("unchecked")
   private static WeatherData generateWeeklyWeather() {
     // -------------------------- config --------------------------
@@ -104,17 +123,23 @@ public class WeatherProducer {
     WeatherData weather = new WeatherData();
     List<WeatherData.DailyWeather> dailyData = new ArrayList<>();
 
+    // генерация данных для каждого дня
     for (int i = 0; i < daysToGenerate; i++) {
       WeatherData.DailyWeather daily = new WeatherData.DailyWeather();
+
       daily.setCondition(conditions.get(ThreadLocalRandom.current().nextInt(conditions.size())));
       daily.setTemperature(
           ThreadLocalRandom.current().nextInt(tempRange.get("min"), tempRange.get("max") + 1));
+
       daily.setDate(LocalDateTime.now().minusDays(i).format(DATE_FORMAT));
+
       dailyData.add(daily);
     }
 
+    // выбор случайного города
     weather.setCity(cities.get(ThreadLocalRandom.current().nextInt(cities.size())));
     weather.setDailyData(dailyData);
+
     return weather;
   }
 }

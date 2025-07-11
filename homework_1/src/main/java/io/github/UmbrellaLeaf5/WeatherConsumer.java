@@ -14,24 +14,40 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+/**
+ * Consumer для обработки данных о погоде из Kafka.
+ *
+ * Собирает статистику по городам: количество солнечных/дождливых/облачных дней,
+ * диапазон температур и время последнего обновления.
+ */
 public class WeatherConsumer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
+
   private static AppConfig config = null;
 
-  private static String outputFile;
-  private static String errorFile;
+  private static String outputFile; // файл для вывода отчетов
+  private static String errorFile; // файл для вывода ошибок
 
+  /**
+   * Внутренний класс для хранения статистики по городу.
+   */
   private static class CityStatistics {
-    int sunnyDays = 0;
-    int rainyDays = 0;
-    int cloudyDays = 0;
+    int sunnyDays = 0; // количество солнечных дней
+    int rainyDays = 0; // количество дождливых дней
+    int cloudyDays = 0; // количество облачных дней
 
-    int maxTemp = Integer.MIN_VALUE;
-    int minTemp = Integer.MAX_VALUE;
+    int maxTemp = Integer.MIN_VALUE; // максимальная температура
+    int minTemp = Integer.MAX_VALUE; // минимальная температура
 
-    String lastUpdate = "";
+    String lastUpdate = ""; // дата последнего обновления
   }
 
+  /**
+   * Основной метод Consumer'а.
+   *
+   * Подключается к Kafka, получает сообщения и формирует отчеты.
+   * @param args (String[]): аргументы командной строки.
+   */
   public static void main(String[] args) {
     try {
       Map<String, Object> consumerConfig = new HashMap<>();
@@ -63,14 +79,18 @@ public class WeatherConsumer {
         consumer.subscribe(Collections.singletonList(topic));
         FileLogger.printToFile("Subscribed to topic: " + topic, outputFile);
 
-        while (true) {
+        for (;;) {
+          // получение сообщений из Kafka
           ConsumerRecords<String, String> records = consumer.poll(pollTimeout);
 
+          // обработка каждого сообщения
           for (ConsumerRecord<String, String> record : records) processWeeklyWeather(record, stats);
 
+          // формирование отчета по истечении интервала
           if (Duration.between(lastReportTime, Instant.now()).getSeconds() >= reportInterval) {
             printWeatherReport(stats);
             lastReportTime = Instant.now();
+
             stats.clear();
           }
         }
@@ -82,6 +102,14 @@ public class WeatherConsumer {
     }
   }
 
+  /**
+   * Обрабатывает данные о погоде за неделю для одного города.
+   *
+   * @param record (ConsumerRecord<String, String>): запись из Kafka, содержащая ключ (город) и
+   *     значение (JSON с данными о погоде).
+   * @param stats (Map<String, CityStatistics>): коллекция для накопления статистики по городам, где
+   *     ключ - название города, значение - соответствующая статистика.
+   */
   private static void processWeeklyWeather(
       ConsumerRecord<String, String> record, Map<String, CityStatistics> stats) {
     try {
@@ -89,6 +117,7 @@ public class WeatherConsumer {
       CityStatistics cityStats =
           stats.computeIfAbsent(weather.getCity(), k -> new CityStatistics());
 
+      // анализ ежедневных данных
       for (WeatherData.DailyWeather daily : weather.getDailyData()) {
         if ("sunny".equals(daily.getCondition()))
           cityStats.sunnyDays++;
@@ -101,6 +130,7 @@ public class WeatherConsumer {
 
         cityStats.maxTemp = Math.max(cityStats.maxTemp, daily.getTemperature());
         cityStats.minTemp = Math.min(cityStats.minTemp, daily.getTemperature());
+
         cityStats.lastUpdate = daily.getDate();
       }
 
@@ -110,11 +140,25 @@ public class WeatherConsumer {
     }
   }
 
+  /**
+   * Формирует и выводит отчет о погоде по всем городам.
+   * Добавляет специальные сообщения для Тюмени и Санкт-Петербурга.
+   *
+   * @param stats (Map<String, CityStatistics>): коллекция со статистикой по городам, где ключ -
+   *     название города, значение - соответствующая статистика.
+   */
   private static void printWeatherReport(Map<String, CityStatistics> stats) {
-    FileLogger.printToFile("\n------------- WEEKLY WEATHER REPORT --------------", outputFile);
+    FileLogger.printToFile("\n------------- WEEKLY WEATHER REPORT -------------", outputFile);
     FileLogger.printToFile("--- Generated at: " + Instant.now() + " ---", outputFile);
+
+    if (stats.isEmpty()) {
+      FileLogger.printToFile("\n------------- EMPTY WEATHER REPORT -------=-------", outputFile);
+      return;
+    }
+
     FileLogger.printToFile("-------------------------------------------------", outputFile);
 
+    // вывод статистики по каждому городу
     stats.forEach((city, data) -> {
       FileLogger.printToFile("City: " + city, outputFile);
       FileLogger.printToFile("• Sunny days: " + data.sunnyDays, outputFile);
@@ -125,6 +169,8 @@ public class WeatherConsumer {
           "• Temp. range: " + data.minTemp + "°C : " + data.maxTemp + "°C", outputFile);
       FileLogger.printToFile("• Last update: " + data.lastUpdate + "\n", outputFile);
     });
+
+    // специальные сообщения:
 
     if (stats.containsKey("Tyumen") && stats.get("Tyumen").rainyDays >= 2)
       FileLogger.printToFile(">> Mushroom picking time in Tyumen! <<", outputFile);
