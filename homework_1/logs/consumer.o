@@ -1,64 +1,57 @@
 Subscribed to topic: weather-data
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:48:27.048894Z ---
+--- Generated at: 2025-07-11T21:21:46.060167Z ---
 -------------------------------------------------
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:48:30.103237Z ---
+--- Generated at: 2025-07-11T21:21:49.102819Z ---
 -------------------------------------------------
-City: Chukotka
+City: Tyumen
+• Sunny days: 1
+• Rainy days: 1
+• Cloudy days: 0
+• Temp. range: 10°C : 22°C
+• Last update: 11.07.2025 21:21:42
+
+
+----------- WEATHER ANALYTICS REPORT ------------
+--- Generated at: 2025-07-11T21:21:52.124084Z ---
+-------------------------------------------------
+City: Tyumen
 • Sunny days: 1
 • Rainy days: 0
 • Cloudy days: 0
-• Temp. range: 30°C : 30°C
-• Last update: 11.07.2025 18:48:23
-
-City: Magadan
-• Sunny days: 1
-• Rainy days: 0
-• Cloudy days: 0
-• Temp. range: 1°C : 1°C
-• Last update: 11.07.2025 18:48:16
+• Temp. range: 17°C : 17°C
+• Last update: 11.07.2025 21:21:49
 
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:48:33.140192Z ---
--------------------------------------------------
-City: Magadan
-• Sunny days: 0
-• Rainy days: 0
-• Cloudy days: 1
-• Temp. range: 6°C : 6°C
-• Last update: 11.07.2025 18:48:30
-
-
------------ WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:48:36.143958Z ---
+--- Generated at: 2025-07-11T21:21:55.126775Z ---
 -------------------------------------------------
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:48:40.137852Z ---
+--- Generated at: 2025-07-11T21:21:59.122135Z ---
 -------------------------------------------------
 City: Saint Petersburg
 • Sunny days: 0
-• Rainy days: 0
-• Cloudy days: 1
-• Temp. range: -6°C : -6°C
-• Last update: 11.07.2025 18:48:37
+• Rainy days: 1
+• Cloudy days: 0
+• Temp. range: -1°C : -1°C
+• Last update: 11.07.2025 21:21:56
 
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:48:43.141217Z ---
+--- Generated at: 2025-07-11T21:22:02.126473Z ---
 -------------------------------------------------
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:48:47.135714Z ---
+--- Generated at: 2025-07-11T21:22:06.121981Z ---
 -------------------------------------------------
-City: Tyumen
+City: Moscow
 • Sunny days: 0
 • Rainy days: 0
 • Cloudy days: 1
-• Temp. range: 25°C : 25°C
-• Last update: 11.07.2025 18:48:44
+• Temp. range: 29°C : 29°C
+• Last update: 11.07.2025 21:22:03
 
