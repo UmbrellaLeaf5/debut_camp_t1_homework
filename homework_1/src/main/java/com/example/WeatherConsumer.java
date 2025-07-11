@@ -24,11 +24,12 @@ public class WeatherConsumer {
         "bootstrap.servers", System.getenv().getOrDefault("BOOTSTRAP_SERVERS", "kafka:9092"));
     config.put("group.id", System.getenv().getOrDefault("GROUP_ID", "weather-group"));
     config.put("auto.offset.reset", "earliest");
+
     config.put("key.deserializer", StringDeserializer.class.getName());
     config.put("value.deserializer", StringDeserializer.class.getName());
 
     Map<String, CityStatistics> stats = new HashMap<>();
-    Instant lastReport = Instant.now();
+    Instant lastReportTime = Instant.now();
     String topic = System.getenv().getOrDefault("TOPIC", "weather-data");
 
     try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(config)) {
@@ -40,9 +41,9 @@ public class WeatherConsumer {
 
         for (ConsumerRecord<String, String> record : records) processWeatherRecord(record, stats);
 
-        if (Duration.between(lastReport, Instant.now()).getSeconds() >= 30) {
+        if (Duration.between(lastReportTime, Instant.now()).getSeconds() >= 30) {
           printWeatherReport(stats);
-          lastReport = Instant.now();
+          lastReportTime = Instant.now();
           stats.clear();
         }
       }
@@ -76,16 +77,16 @@ public class WeatherConsumer {
   }
 
   private static void printWeatherReport(Map<String, CityStatistics> stats) {
-    System.out.println("\n=== WEATHER ANALYTICS REPORT ===");
+    System.out.println("\n• • WEATHER ANALYTICS REPORT • •");
     System.out.println("Generated at: " + Instant.now());
-    System.out.println("==============================");
+    System.out.println("• • • • • • • • • • • • • • • •");
 
     stats.forEach((city, data) -> {
       System.out.println("City: " + city);
-      System.out.println("- Sunny days: " + data.sunnyDays);
-      System.out.println("- Rainy days: " + data.rainyDays);
-      System.out.println("- Temperature range: " + data.minTemp + "°C to " + data.maxTemp + "°C");
-      System.out.println("- Last update: " + data.lastUpdate + "\n");
+      System.out.println("• Sunny days: " + data.sunnyDays);
+      System.out.println("• Rainy days: " + data.rainyDays);
+      System.out.println("• Temperature range: " + data.minTemp + "°C to " + data.maxTemp + "°C");
+      System.out.println("• Last update: " + data.lastUpdate + "\n");
     });
 
     if (stats.containsKey("Tyumen") && stats.get("Tyumen").rainyDays >= 2)

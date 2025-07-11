@@ -42,13 +42,14 @@ public class WeatherProducer {
               new ProducerRecord<>(topic, weather.getCity(), json);
 
           producer.send(record, (metadata, e) -> {
-            if (e != null) {
+            if (e != null)
               System.err.printf("Failed to send message to %s: %s%n", topic, e.getMessage());
-            } else {
+
+            else
               System.out.printf("Sent weather data for %s [partition %d]%n", weather.getCity(),
                   metadata.partition());
-            }
           });
+
         } catch (Exception e) {
           System.err.println("JSON serialization error: " + e.getMessage());
         }

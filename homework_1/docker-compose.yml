@@ -19,7 +19,7 @@ services:
   consumer:
     build:
       context: ./
-      dockerfile: Dockerfile.consumer
+      dockerfile: docker/consumer.dockerfile
     image: consumer:1.0
     environment:
       group.id: weather-group
@@ -32,7 +32,7 @@ services:
   producer:
     build:
       context: ./
-      dockerfile: Dockerfile.producer
+      dockerfile: docker/producer.dockerfile
     image: producer:1.0
     environment:
       bootstrap.servers: kafka:9092
