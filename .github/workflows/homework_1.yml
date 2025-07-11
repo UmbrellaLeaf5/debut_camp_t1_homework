@@ -17,49 +17,55 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Update CA certificates
-      run: sudo update-ca-certificates
+      - name: Update CA certificates
+        run: sudo update-ca-certificates
 
-    # Установка Java и Maven
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      # Установка Java и Maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: "17"
+          distribution: "temurin"
 
-    # Сборка проекта
-    - name: Build with Maven
-      working-directory: ./homework_1
-      run: mvn clean package
+      # Сборка проекта
+      - name: Build with Maven
+        working-directory: ./homework_1
+        run: mvn clean package
 
-    # Установка Docker Compose
-    - name: Install Docker Compose (APT)
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
-        docker-compose --version
+      # Установка Docker Compose
+      - name: Install Docker Compose (APT)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+          docker-compose --version
 
-    # Запуск инфраструктуры (Kafka + Zookeeper)
-    - name: Start Kafka with Docker Compose
-      working-directory: ./homework_1
-      run: |
-        docker-compose up -d zookeeper kafka
-        sleep 30  # Ожидание готовности Kafka
+      # - name: Start
+      #   working-directory: ./homework_1
+      #   run: |
+      #     docker-compose up -d
 
-    # Запуск продюсера и консьюмера
-    - name: Run Producer and Consumer
-      working-directory: ./homework_1
-      run: |
-        docker-compose up -d homework_1-producer homework_1-consumer
-        sleep 10
-    
-    - name: Checking Logs
-      working-directory: ./homework_1
-      run: |
-        docker-compose logs -f homework_1-consumer
-        docker-compose logs -f homework_1-producer
-        docker ps
-        docker-compose ps
+      # Запуск инфраструктуры (Kafka + Zookeeper)
+      - name: Start Kafka infrastructure
+        working-directory: ./homework_1
+        run: |
+          docker-compose up -d zookeeper kafka
+          sleep 30
+
+      # Запуск продюсера и консьюмера
+      - name: Run Producer and Consumer
+        working-directory: ./homework_1
+        run: |
+          docker-compose up -d producer consumer
+          sleep 10
+
+      - name: Checking Logs
+        working-directory: ./homework_1
+        run: |
+          docker-compose logs --tail=50 kafka
+          docker-compose logs --tail=50 consumer
+          docker-compose logs --tail=50 producer
+          docker ps
+          docker-compose ps

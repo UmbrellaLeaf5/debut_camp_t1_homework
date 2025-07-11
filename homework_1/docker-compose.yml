@@ -12,15 +12,15 @@ services:
       KAFKA_LOG_CLEANER_DELETE_RETENTION_MS: 20000
       KAFKA_LOG_SEGMENT_BYTES: 512000
       KAFKA_NUM_PARTITIONS: 16
-      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 16000      
+      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: 16000
       KAFKA_ZOOKEEPER_SESSION_TIMEOUT_MS: 16000
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 10000
 
-  homework_1-consumer:
+  consumer:
     build:
       context: ./
       dockerfile: Dockerfile.consumer
-    image: homework_1-consumer:1.0
+    image: consumer:1.0
     environment:
       group.id: cool-consumer
       bootstrap.servers: kafka:9092
@@ -28,13 +28,12 @@ services:
     restart: unless-stopped
     depends_on:
       - kafka
-      
-      
-  homework_1-producer:
+
+  producer:
     build:
       context: ./
       dockerfile: Dockerfile.producer
-    image: homework_1-producer:1.0
+    image: producer:1.0
     environment:
       bootstrap.servers: kafka:9092
       TOPIC: mytopic
