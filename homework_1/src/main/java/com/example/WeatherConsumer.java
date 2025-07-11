@@ -10,87 +10,88 @@ import org.apache.kafka.common.serialization.*;
 public class WeatherConsumer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
 
-  private static class CityStats {
+  private static class CityStatistics {
     int sunnyDays = 0;
     int rainyDays = 0;
     int maxTemp = Integer.MIN_VALUE;
     int minTemp = Integer.MAX_VALUE;
-    String lastDate = "";
+    String lastUpdate = "";
   }
 
   public static void main(String[] args) {
     Map<String, Object> config = new HashMap<>();
-
-    config.put("bootstrap.servers", System.getenv("BOOTSTRAP_SERVERS"));
-    config.put("group.id", System.getenv("GROUP_ID"));
+    config.put(
+        "bootstrap.servers", System.getenv().getOrDefault("BOOTSTRAP_SERVERS", "kafka:9092"));
+    config.put("group.id", System.getenv().getOrDefault("GROUP_ID", "weather-group"));
     config.put("auto.offset.reset", "earliest");
     config.put("key.deserializer", StringDeserializer.class.getName());
     config.put("value.deserializer", StringDeserializer.class.getName());
 
-    Map<String, CityStats> statistics = new HashMap<>();
-    Instant lastReportTime = Instant.now();
+    Map<String, CityStatistics> stats = new HashMap<>();
+    Instant lastReport = Instant.now();
+    String topic = System.getenv().getOrDefault("TOPIC", "weather-data");
 
     try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(config)) {
-      consumer.subscribe(Collections.singletonList(System.getenv("TOPIC")));
+      consumer.subscribe(Collections.singletonList(topic));
+      System.out.println("Subscribed to topic: " + topic);
 
       while (true) {
         ConsumerRecords<String, String> records = consumer.poll(1000);
 
-        for (ConsumerRecord<String, String> record : records) try {
-            WeatherData weather = objectMapper.readValue(record.value(), WeatherData.class);
-            updateStatistics(weather, statistics);
-          } catch (Exception e) {
-            System.err.println("JSON parsing Error: " + e.getMessage());
-          }
+        for (ConsumerRecord<String, String> record : records) processWeatherRecord(record, stats);
 
-        // каждые 30 секунд выводим статистику
-        if (Duration.between(lastReportTime, Instant.now()).getSeconds() >= 30) {
-          printStatistics(statistics);
-          lastReportTime = Instant.now();
-          statistics.clear(); // сбрасываем статистику
+        if (Duration.between(lastReport, Instant.now()).getSeconds() >= 30) {
+          printWeatherReport(stats);
+          lastReport = Instant.now();
+          stats.clear();
         }
       }
 
     } catch (Exception e) {
-      System.err.println("Exception (consumer): " + e.getMessage());
+      System.err.println("Consumer fatal error: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
-  private static void updateStatistics(WeatherData weather, Map<String, CityStats> statistics) {
-    CityStats stats = statistics.computeIfAbsent(weather.getCity(), k -> new CityStats());
+  private static void processWeatherRecord(
+      ConsumerRecord<String, String> record, Map<String, CityStatistics> stats) {
+    try {
+      WeatherData weather = objectMapper.readValue(record.value(), WeatherData.class);
+      CityStatistics cityStats =
+          stats.computeIfAbsent(weather.getCity(), k -> new CityStatistics());
 
-    if ("sunny".equals(weather.getCondition()))
-      stats.sunnyDays++;
+      if ("sunny".equals(weather.getCondition()))
+        cityStats.sunnyDays++;
 
-    if ("rainy".equals(weather.getCondition()))
-      stats.rainyDays++;
+      else if ("rainy".equals(weather.getCondition()))
+        cityStats.rainyDays++;
 
-    stats.maxTemp = Math.max(stats.maxTemp, weather.getTemperature());
-    stats.minTemp = Math.min(stats.minTemp, weather.getTemperature());
-    stats.lastDate = weather.getTimestamp();
+      cityStats.maxTemp = Math.max(cityStats.maxTemp, weather.getTemperature());
+      cityStats.minTemp = Math.min(cityStats.minTemp, weather.getTemperature());
+      cityStats.lastUpdate = weather.getTimestamp();
+
+    } catch (Exception e) {
+      System.err.println("Failed to process record [" + record.key() + "]: " + e.getMessage());
+    }
   }
 
-  private static void printStatistics(Map<String, CityStats> statistics) {
-    System.out.print("\n=== Weather analytics for the period ===\n");
+  private static void printWeatherReport(Map<String, CityStatistics> stats) {
+    System.out.println("\n=== WEATHER ANALYTICS REPORT ===");
+    System.out.println("Generated at: " + Instant.now());
+    System.out.println("==============================");
 
-    statistics.forEach((city, stats) -> {
-      System.out.printf("City: %s\n"
-              + "• Sunny days: %d\n"
-              + "• Rainy days: %d\n"
-              + "• Max. temperature: %d°C\n"
-              + "• Min. temperature: %d°C\n"
-              + "• Last update: %s\n\n",
-          city, stats.sunnyDays, stats.rainyDays, stats.maxTemp, stats.minTemp, stats.lastDate);
+    stats.forEach((city, data) -> {
+      System.out.println("City: " + city);
+      System.out.println("- Sunny days: " + data.sunnyDays);
+      System.out.println("- Rainy days: " + data.rainyDays);
+      System.out.println("- Temperature range: " + data.minTemp + "°C to " + data.maxTemp + "°C");
+      System.out.println("- Last update: " + data.lastUpdate + "\n");
     });
 
-    // дополнительная аналитика
-    System.out.println("=== Recommendations ===");
-    statistics.forEach((city, stats) -> {
-      if (city.equals("Tyumen") && stats.rainyDays >= 2)
-        System.out.println("It rained in Tyumen - now it's time to go mushroom picking!");
+    if (stats.containsKey("Tyumen") && stats.get("Tyumen").rainyDays >= 2)
+      System.out.println(">> Mushroom picking season in Tyumen! <<");
 
-      if (city.equals("Saint Petersburg") && stats.rainyDays > stats.sunnyDays)
-        System.out.println("In St. Petersburg there is more rain than sunny days - typical!");
-    });
+    if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").rainyDays > 3)
+      System.out.println(">> Typical rainy St. Petersburg weather <<");
   }
 }

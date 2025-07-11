@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile.consumer
     image: consumer:1.0
     environment:
-      group.id: cool-consumer
+      group.id: weather-group
       bootstrap.servers: kafka:9092
       TOPIC: weather_topic
     restart: unless-stopped
