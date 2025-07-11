@@ -1,4 +1,4 @@
-package com.example.config;
+package io.github.UmbrellaLeaf5.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;

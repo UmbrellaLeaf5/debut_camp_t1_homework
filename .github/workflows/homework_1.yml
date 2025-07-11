@@ -3,10 +3,7 @@ name: homework_1
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - homework_1
 
 env:
   KAFKA_TOPIC: weather_topic
@@ -25,26 +22,22 @@ jobs:
       - name: Update CA certificates
         run: sudo update-ca-certificates
 
-      # Установка Java и Maven
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: "17"
           distribution: "temurin"
 
-      # Сборка проекта
       - name: Build with Maven
         working-directory: ./homework_1
         run: mvn clean package
 
-      # Установка Docker Compose
       - name: Install Docker Compose (APT)
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
           docker-compose --version
 
-      # Запуск инфраструктуры (Kafka + Zookeeper)
       - name: Start Kafka infrastructure
         working-directory: ./homework_1
         run: |
@@ -59,7 +52,6 @@ jobs:
           # Проверка топика
           docker-compose exec -t kafka kafka-topics --describe --topic $KAFKA_TOPIC --bootstrap-server kafka:9092
 
-      # Запуск продюсера и консьюмера
       - name: Run Producer and Consumer
         working-directory: ./homework_1
         run: |
@@ -95,6 +87,6 @@ jobs:
 
           git add ./homework_1/logs/
 
-          git commit -m "add log files from workflow run $(date +'%d-%m-%Y %H:%M:%S')"
+          git commit -m "add log files from workflow run (date: $(date +'%d.%m.%Y %H:%M:%S'))"
 
           git push origin output -f

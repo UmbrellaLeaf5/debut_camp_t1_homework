@@ -1,14 +1,11 @@
-package com.example.model;
+package io.github.UmbrellaLeaf5.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class WeatherData {
   @JsonProperty("city") private String city;
-
   @JsonProperty("condition") private String condition;
-
   @JsonProperty("temperature") private int temperature;
-
   @JsonProperty("timestamp") private String timestamp;
 
   public String getCity() {

@@ -1,13 +1,17 @@
-package com.example;
+package io.github.UmbrellaLeaf5;
 
-import com.example.config.AppConfig;
-import com.example.model.WeatherData;
-import com.example.utils.FileLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.*;
-import java.util.*;
+import io.github.UmbrellaLeaf5.config.AppConfig;
+import io.github.UmbrellaLeaf5.model.WeatherData;
+import io.github.UmbrellaLeaf5.utils.FileLogger;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.*;
+
 
 public class WeatherConsumer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -23,6 +27,7 @@ public class WeatherConsumer {
 
     int maxTemp = Integer.MIN_VALUE;
     int minTemp = Integer.MAX_VALUE;
+
     String lastUpdate = "";
   }
 
@@ -50,7 +55,7 @@ public class WeatherConsumer {
       // ------------------------------------------------------------
 
       Map<String, CityStatistics> stats = new HashMap<>();
-      Instant lastReport = Instant.now();
+      Instant lastReportTime = Instant.now();
 
       try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerConfig)) {
         consumer.subscribe(Collections.singletonList(topic));
@@ -61,9 +66,9 @@ public class WeatherConsumer {
 
           for (ConsumerRecord<String, String> record : records) processWeatherRecord(record, stats);
 
-          if (Duration.between(lastReport, Instant.now()).getSeconds() >= reportInterval) {
+          if (Duration.between(lastReportTime, Instant.now()).getSeconds() >= reportInterval) {
             printWeatherReport(stats);
-            lastReport = Instant.now();
+            lastReportTime = Instant.now();
             stats.clear();
           }
         }
@@ -119,12 +124,12 @@ public class WeatherConsumer {
     });
 
     if (stats.containsKey("Tyumen") && stats.get("Tyumen").rainyDays >= 2)
-      FileLogger.printToFile(">> Mushroom picking season in Tyumen! <<", outputFile);
+      FileLogger.printToFile(">> Mushroom picking time in Tyumen! <<", outputFile);
 
     if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").rainyDays > 3)
-      FileLogger.printToFile(">> Typical rainy St. Petersburg weather! <<", outputFile);
+      FileLogger.printToFile(">> Typical rainy weather in St. Petersburg! <<", outputFile);
 
     if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").sunnyDays > 2)
-      FileLogger.printToFile(">> Untypical sunny St. Petersburg weather! <<", outputFile);
+      FileLogger.printToFile(">> Untypical sunny weather in St. Petersburg! <<", outputFile);
   }
 }

@@ -1,14 +1,20 @@
-package com.example;
+package io.github.UmbrellaLeaf5;
 
-import com.example.config.AppConfig;
-import com.example.model.WeatherData;
-import com.example.utils.FileLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.UmbrellaLeaf5.config.AppConfig;
+import io.github.UmbrellaLeaf5.model.WeatherData;
+import io.github.UmbrellaLeaf5.utils.FileLogger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import org.apache.kafka.clients.producer.*;
+
 
 public class WeatherProducer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -33,6 +39,9 @@ public class WeatherProducer {
       int delay = (int) config.getTiming().get("producerDelaySeconds");
       int threadTimeout = (int) config.getTiming().get("producerThreadTimeoutMs");
 
+      int retries = (int) config.getKafka().get("producerRetries");
+      int linger = (int) config.getKafka().get("producerLingerMs");
+
       outputFile = (String) config.getFiles().get("producerOutputFilePath");
       errorFile = (String) config.getFiles().get("producerExceptionFilePath");
 
@@ -43,8 +52,8 @@ public class WeatherProducer {
       producerConfig.put(
           "value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
       producerConfig.put("acks", "all");
-      producerConfig.put("retries", 3);
-      producerConfig.put("linger.ms", 1);
+      producerConfig.put("retries", retries);
+      producerConfig.put("linger.ms", linger);
 
       try (Producer<String, String> producer = new KafkaProducer<>(producerConfig)) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
