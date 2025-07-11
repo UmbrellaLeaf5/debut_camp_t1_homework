@@ -59,7 +59,7 @@
         </plugins>
     </build>
     <properties>
-        <mainClass>grp.WeatherConsumer</mainClass>        
+        <mainClass>com.example.WeatherConsumer</mainClass>        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>9</maven.compiler.source>
         <maven.compiler.target>9</maven.compiler.target>

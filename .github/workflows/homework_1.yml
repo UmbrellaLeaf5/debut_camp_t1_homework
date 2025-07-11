@@ -13,7 +13,7 @@ env:
   BOOTSTRAP_SERVERS: kafka:9092
 
 jobs:
-  build-and-test:
+  homework_1_build_and_run:
     runs-on: ubuntu-latest
 
     steps:
@@ -55,4 +55,11 @@ jobs:
       run: |
         docker-compose up -d homework_1-producer homework_1-consumer
         sleep 10
-        # docker-compose logs -f homework_1-consumer
+    
+    - name: Checking Logs
+      working-directory: ./homework_1
+      run: |
+        docker-compose logs -f homework_1-consumer
+        docker-compose logs -f homework_1-producer
+        docker ps
+        docker-compose ps

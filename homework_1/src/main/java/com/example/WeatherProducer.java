@@ -12,8 +12,7 @@ public class WeatherProducer {
     try (final Producer<String, String> producer =
              new KafkaProducer<>(Map.of(BOOTSTRAP_SERVERS, System.getenv(BOOTSTRAP_SERVERS)),
                  new StringSerializer(), new StringSerializer())) {
-      // producer.send(new ProducerRecord<>(TOPIC,"DUMMY",null)).get(20, TimeUnit.SECONDS); // Force
-      // topic creation
+      producer.send(new ProducerRecord<>(TOPIC, "DUMMY", null)).get(20, TimeUnit.SECONDS);
 
       Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(
           ()
