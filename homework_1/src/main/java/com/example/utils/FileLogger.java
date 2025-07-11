@@ -1,16 +1,27 @@
 package com.example.utils;
 
 import java.io.*;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileLogger {
   public static void printToFile(String message, String filePath) {
     System.out.println(message);
 
+    Path path = Paths.get(filePath);
+
     try {
-      Files.createDirectories(Paths.get(filePath).getParent());
-      Files.write(Paths.get(filePath), (message + System.lineSeparator()).getBytes(),
-          StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+      if (!Files.exists(path))
+        Files.createFile(path);
+
+    } catch (IOException e) {
+      System.err.println("Failed to write logs to " + filePath + ": " + e.getMessage());
+    }
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+      writer.write(message);
+      writer.newLine();
 
     } catch (IOException e) {
       System.err.println("Failed to write logs to " + filePath + ": " + e.getMessage());

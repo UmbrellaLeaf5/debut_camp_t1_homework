@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Update CA certificates
         run: sudo update-ca-certificates
@@ -47,10 +49,13 @@ jobs:
         working-directory: ./homework_1
         run: |
           docker-compose up -d zookeeper kafka
+
           # Ожидание полной готовности Kafka
           timeout 180 bash -c 'until docker-compose exec -t kafka kafka-topics --list --bootstrap-server kafka:9092; do sleep 10; echo "Waiting for Kafka..."; done'
+
           # Явное создание топика
           docker-compose exec -t kafka kafka-topics --create --topic $KAFKA_TOPIC --partitions 1 --replication-factor 1 --bootstrap-server kafka:9092 || true
+
           # Проверка топика
           docker-compose exec -t kafka kafka-topics --describe --topic $KAFKA_TOPIC --bootstrap-server kafka:9092
 
@@ -65,18 +70,31 @@ jobs:
         working-directory: ./homework_1
         run: |
           docker-compose ps -a
+
           echo "=== Kafka logs ==="
           docker-compose logs --tail=20 kafka
+
           echo "=== Consumer logs ==="
           docker-compose logs --tail=50 consumer
+
           echo "=== Producer logs ==="
           docker-compose logs --tail=50 producer
 
-      - name: Upload logs
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs
-          path: |
-            /app/homework_1/*.o
-            /app/homework_1/*.e
-          if-no-files-found: error
+      - name: Commit logs to output branch
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          git fetch origin output
+          git checkout output
+          git pull origin output
+
+          mkdir -p ./homework_1/logs
+          cp /app/homework_1/*.o ./homework_1/logs/ || true
+          cp /app/homework_1/*.e ./homework_1/logs/ || true
+
+          git add ./homework_1/logs/
+
+          git commit -m "add log files from workflow run $(date +'%d-%m-%Y %H:%M:%S')"
+
+          git push origin output -f

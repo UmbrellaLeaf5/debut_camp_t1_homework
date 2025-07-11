@@ -44,8 +44,8 @@ public class WeatherConsumer {
       int reportInterval = (int) config.getTiming().get("consumerReportIntervalSeconds");
       int pollTimeout = (int) config.getTiming().get("consumerPollTimeoutMs");
 
-      outputFile = (String) config.getFiles().get("producerOutputFilePath");
-      errorFile = (String) config.getFiles().get("producerExceptionFilePath");
+      outputFile = (String) config.getFiles().get("consumerOutputFilePath");
+      errorFile = (String) config.getFiles().get("consumerExceptionFilePath");
 
       // ------------------------------------------------------------
 

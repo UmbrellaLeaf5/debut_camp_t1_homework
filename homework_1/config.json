@@ -24,8 +24,8 @@
     }
   },
   "timing": {
-    "producerDelaySeconds": 5,
-    "consumerReportIntervalSeconds": 7,
+    "producerDelaySeconds": 7,
+    "consumerReportIntervalSeconds": 3,
     "consumerPollTimeoutMs": 1000,
     "producerThreadTimeoutMs": 1000
   },

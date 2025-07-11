@@ -30,6 +30,7 @@ services:
       - kafka
     volumes:
       - ./config.json:/app/config.json
+      - /app/homework_1:/app/homework_1
 
   producer:
     build:
@@ -44,3 +45,4 @@ services:
       - kafka
     volumes:
       - ./config.json:/app/config.json
+      - /app/homework_1:/app/homework_1

@@ -63,7 +63,7 @@ public class WeatherProducer {
                     "Failed to send message to %s: %s%n", errorFile, topic, e.getMessage());
 
               else
-                FileLogger.printfToFile("Sent weather data for %s [partition %d]%n", errorFile,
+                FileLogger.printfToFile("Sent weather data for %s [partition %d]%n", outputFile,
                     weather.getCity(), metadata.partition());
             });
 
