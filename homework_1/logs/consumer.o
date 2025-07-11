@@ -1,64 +1,64 @@
 Subscribed to topic: weather-data
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:47:31.147207Z ---
+--- Generated at: 2025-07-11T18:48:27.048894Z ---
 -------------------------------------------------
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:47:34.193571Z ---
--------------------------------------------------
-City: Chukotka
-• Sunny days: 0
-• Rainy days: 1
-• Cloudy days: 0
-• Temp. range: -5°C : -5°C
-• Last update: 11.07.2025 18:47:20
-
-City: Saint Petersburg
-• Sunny days: 1
-• Rainy days: 0
-• Cloudy days: 0
-• Temp. range: 6°C : 6°C
-• Last update: 11.07.2025 18:47:27
-
-
------------ WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:47:37.218865Z ---
--------------------------------------------------
-City: Tyumen
-• Sunny days: 1
-• Rainy days: 0
-• Cloudy days: 0
-• Temp. range: 28°C : 28°C
-• Last update: 11.07.2025 18:47:34
-
-
------------ WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:47:40.223424Z ---
--------------------------------------------------
-
------------ WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:47:44.218377Z ---
+--- Generated at: 2025-07-11T18:48:30.103237Z ---
 -------------------------------------------------
 City: Chukotka
 • Sunny days: 1
 • Rainy days: 0
 • Cloudy days: 0
-• Temp. range: 22°C : 22°C
-• Last update: 11.07.2025 18:47:41
+• Temp. range: 30°C : 30°C
+• Last update: 11.07.2025 18:48:23
+
+City: Magadan
+• Sunny days: 1
+• Rainy days: 0
+• Cloudy days: 0
+• Temp. range: 1°C : 1°C
+• Last update: 11.07.2025 18:48:16
 
 
 ----------- WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:47:47.222930Z ---
--------------------------------------------------
-
------------ WEATHER ANALYTICS REPORT ------------
---- Generated at: 2025-07-11T18:47:51.219764Z ---
+--- Generated at: 2025-07-11T18:48:33.140192Z ---
 -------------------------------------------------
 City: Magadan
 • Sunny days: 0
 • Rainy days: 0
 • Cloudy days: 1
-• Temp. range: 19°C : 19°C
-• Last update: 11.07.2025 18:47:48
+• Temp. range: 6°C : 6°C
+• Last update: 11.07.2025 18:48:30
+
+
+----------- WEATHER ANALYTICS REPORT ------------
+--- Generated at: 2025-07-11T18:48:36.143958Z ---
+-------------------------------------------------
+
+----------- WEATHER ANALYTICS REPORT ------------
+--- Generated at: 2025-07-11T18:48:40.137852Z ---
+-------------------------------------------------
+City: Saint Petersburg
+• Sunny days: 0
+• Rainy days: 0
+• Cloudy days: 1
+• Temp. range: -6°C : -6°C
+• Last update: 11.07.2025 18:48:37
+
+
+----------- WEATHER ANALYTICS REPORT ------------
+--- Generated at: 2025-07-11T18:48:43.141217Z ---
+-------------------------------------------------
+
+----------- WEATHER ANALYTICS REPORT ------------
+--- Generated at: 2025-07-11T18:48:47.135714Z ---
+-------------------------------------------------
+City: Tyumen
+• Sunny days: 0
+• Rainy days: 0
+• Cloudy days: 1
+• Temp. range: 25°C : 25°C
+• Last update: 11.07.2025 18:48:44
 
