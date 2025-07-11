@@ -1,31 +1,55 @@
 package com.example;
 
+import com.example.model.WeatherData;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.*;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.clients.producer.*;
 
 public class WeatherProducer {
-  public static void main(String[] args) throws Exception {
-    try (final Producer<String, String> producer =
-             new KafkaProducer<>(Map.of(BOOTSTRAP_SERVERS, System.getenv(BOOTSTRAP_SERVERS)),
-                 new StringSerializer(), new StringSerializer())) {
-      producer.send(new ProducerRecord<>(TOPIC, "DUMMY", null)).get(20, TimeUnit.SECONDS);
+  private static final ObjectMapper objectMapper = new ObjectMapper();
+  private static final String[] CITIES = {
+      "Magadan", "Chukotka", "Saint Petersburg", "Tyumen", "Moscow"};
+  private static final String[] CONDITIONS = {"sunny", "cloudy", "rainy"};
+  private static final DateTimeFormatter DATE_FORMAT =
+      DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-      Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(
-          ()
-              -> producer.send(
-                  new ProducerRecord<>(TOPIC, "key-" + ThreadLocalRandom.current().nextInt(10),
-                      "val-" + ThreadLocalRandom.current().nextInt())),
-          0, 100, TimeUnit.MILLISECONDS);
+  public static void main(String[] args) {
+    Map<String, Object> config = Map.of("bootstrap.servers", System.getenv("BOOTSTRAP_SERVERS"),
+        "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
+        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+
+    try (Producer<String, String> producer = new KafkaProducer<>(config)) {
+      ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
+      executor.scheduleAtFixedRate(() -> {
+        WeatherData weather = new WeatherData();
+
+        weather.setCity(CITIES[ThreadLocalRandom.current().nextInt(CITIES.length)]);
+        weather.setCondition(CONDITIONS[ThreadLocalRandom.current().nextInt(CONDITIONS.length)]);
+        weather.setTemperature(ThreadLocalRandom.current().nextInt(-10, 35));
+        weather.setTimestamp(LocalDateTime.now().format(DATE_FORMAT));
+
+        try {
+          String json = objectMapper.writeValueAsString(weather);
+          ProducerRecord<String, String> record =
+              new ProducerRecord<>(System.getenv("TOPIC"), weather.getCity(), json);
+
+          producer.send(record);
+          System.out.println("Send data: " + json);
+
+        } catch (Exception e) {
+          System.err.println("JSON creating Error: " + e.getMessage());
+        }
+      }, 0, 5, TimeUnit.SECONDS); // отправка каждые 5 секунд
+
+      // бесконечный цикл для поддержания работы
+      while (true) Thread.sleep(1000);
 
     } catch (Exception e) {
-      System.err.println("Exception: " + e.getMessage());
+      System.err.println("Exception (producer): " + e.getMessage());
     }
   }
-
-  static final String BOOTSTRAP_SERVERS = "bootstrap.servers";
-  static final String TOPIC = System.getenv("TOPIC");
 }

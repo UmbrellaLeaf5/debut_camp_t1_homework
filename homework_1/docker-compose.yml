@@ -24,7 +24,7 @@ services:
     environment:
       group.id: cool-consumer
       bootstrap.servers: kafka:9092
-      TOPIC: mytopic
+      TOPIC: weather_topic
     restart: unless-stopped
     depends_on:
       - kafka
@@ -36,7 +36,7 @@ services:
     image: producer:1.0
     environment:
       bootstrap.servers: kafka:9092
-      TOPIC: mytopic
+      TOPIC: weather_topic
     restart: unless-stopped
     depends_on:
       - kafka

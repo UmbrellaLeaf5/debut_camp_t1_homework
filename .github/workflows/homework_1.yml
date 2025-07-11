@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  KAFKA_TOPIC: mytopic
+  KAFKA_TOPIC: weather_topic
   BOOTSTRAP_SERVERS: kafka:9092
 
 jobs:
