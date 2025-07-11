@@ -6,8 +6,18 @@
     "autoOffsetReset": "earliest"
   },
   "weather": {
-    "cities": ["Magadan", "Chukotka", "Saint Petersburg", "Tyumen", "Moscow"],
-    "conditions": ["sunny", "cloudy", "rainy"],
+    "cities": [
+      "Magadan",
+      "Chukotka",
+      "Saint Petersburg",
+      "Tyumen",
+      "Moscow"
+    ],
+    "conditions": [
+      "sunny",
+      "cloudy",
+      "rainy"
+    ],
     "temperatureRange": {
       "min": -10,
       "max": 35
@@ -15,8 +25,14 @@
   },
   "timing": {
     "producerDelaySeconds": 5,
-    "consumerReportIntervalSeconds": 30,
+    "consumerReportIntervalSeconds": 7,
     "consumerPollTimeoutMs": 1000,
     "producerThreadTimeoutMs": 1000
+  },
+  "files": {
+    "consumerExceptionFilePath": "/app/homework_1/consumer.e",
+    "consumerOutputFilePath": "/app/homework_1/consumer.o",
+    "producerExceptionFilePath": "/app/homework_1/producer.e",
+    "producerOutputFilePath": "/app/homework_1/producer.o"
   }
 }

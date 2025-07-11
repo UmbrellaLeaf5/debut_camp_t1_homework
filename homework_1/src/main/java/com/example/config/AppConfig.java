@@ -9,6 +9,7 @@ public class AppConfig {
   private Map<String, Object> kafka;
   private Map<String, Object> weather;
   private Map<String, Object> timing;
+  private Map<String, Object> files;
 
   public static AppConfig load(String configPath) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
@@ -25,5 +26,9 @@ public class AppConfig {
 
   public Map<String, Object> getTiming() {
     return timing;
+  }
+
+  public Map<String, Object> getFiles() {
+    return files;
   }
 }

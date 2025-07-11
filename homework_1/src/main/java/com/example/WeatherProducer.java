@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.config.AppConfig;
 import com.example.model.WeatherData;
+import com.example.utils.FileLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,9 +13,12 @@ import org.apache.kafka.clients.producer.*;
 public class WeatherProducer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
   private static final DateTimeFormatter DATE_FORMAT =
-      DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+      DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
   private static AppConfig config = null;
+
+  @SuppressWarnings("unused") private static String outputFile;
+  private static String errorFile;
 
   public static void main(String[] args) {
     try {
@@ -28,6 +32,9 @@ public class WeatherProducer {
       String topic = (String) config.getKafka().get("topic");
       int delay = (int) config.getTiming().get("producerDelaySeconds");
       int threadTimeout = (int) config.getTiming().get("producerThreadTimeoutMs");
+
+      outputFile = (String) config.getFiles().get("producerOutputFilePath");
+      errorFile = (String) config.getFiles().get("producerExceptionFilePath");
 
       // ------------------------------------------------------------
 
@@ -52,27 +59,29 @@ public class WeatherProducer {
 
             producer.send(record, (metadata, e) -> {
               if (e != null)
-                System.err.printf("Failed to send message to %s: %s%n", topic, e.getMessage());
+                FileLogger.printfToFile(
+                    "Failed to send message to %s: %s%n", errorFile, topic, e.getMessage());
 
               else
-                System.out.printf("Sent weather data for %s [partition %d]%n", weather.getCity(),
-                    metadata.partition());
+                FileLogger.printfToFile("Sent weather data for %s [partition %d]%n", errorFile,
+                    weather.getCity(), metadata.partition());
             });
 
           } catch (Exception e) {
-            System.err.println("JSON serialization error: " + e.getMessage());
+            FileLogger.printToFile("JSON serialization error: " + e.getMessage(), errorFile);
           }
         }, 0, delay, TimeUnit.SECONDS);
 
         while (true) Thread.sleep(threadTimeout);
 
       } catch (Exception e) {
-        System.err.println("Producer fatal error: " + e.getMessage());
+        FileLogger.printToFile("Producer fatal error: " + e.getMessage(), errorFile);
+
         e.printStackTrace();
       }
 
     } catch (Exception e) {
-      System.err.println("Configuration error: " + e.getMessage());
+      FileLogger.printToFile("Configuration error: " + e.getMessage(), errorFile);
     }
   }
 

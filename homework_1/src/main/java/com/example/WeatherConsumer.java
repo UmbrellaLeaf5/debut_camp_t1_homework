@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.config.AppConfig;
 import com.example.model.WeatherData;
+import com.example.utils.FileLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.*;
 import java.util.*;
@@ -12,9 +13,14 @@ public class WeatherConsumer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
   private static AppConfig config = null;
 
+  private static String outputFile;
+  private static String errorFile;
+
   private static class CityStatistics {
     int sunnyDays = 0;
     int rainyDays = 0;
+    int cloudyDays = 0;
+
     int maxTemp = Integer.MIN_VALUE;
     int minTemp = Integer.MAX_VALUE;
     String lastUpdate = "";
@@ -38,6 +44,9 @@ public class WeatherConsumer {
       int reportInterval = (int) config.getTiming().get("consumerReportIntervalSeconds");
       int pollTimeout = (int) config.getTiming().get("consumerPollTimeoutMs");
 
+      outputFile = (String) config.getFiles().get("producerOutputFilePath");
+      errorFile = (String) config.getFiles().get("producerExceptionFilePath");
+
       // ------------------------------------------------------------
 
       Map<String, CityStatistics> stats = new HashMap<>();
@@ -45,7 +54,7 @@ public class WeatherConsumer {
 
       try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerConfig)) {
         consumer.subscribe(Collections.singletonList(topic));
-        System.out.println("Subscribed to topic: " + topic);
+        FileLogger.printToFile("Subscribed to topic: " + topic, outputFile);
 
         while (true) {
           ConsumerRecords<String, String> records = consumer.poll(pollTimeout);
@@ -61,7 +70,8 @@ public class WeatherConsumer {
       }
 
     } catch (Exception e) {
-      System.err.println("Consumer fatal error: " + e.getMessage());
+      FileLogger.printToFile("Consumer fatal error: " + e.getMessage(), errorFile);
+
       e.printStackTrace();
     }
   }
@@ -73,41 +83,48 @@ public class WeatherConsumer {
       CityStatistics cityStats =
           stats.computeIfAbsent(weather.getCity(), k -> new CityStatistics());
 
-      if ("sunny".equals(weather.getCondition())) {
+      if ("sunny".equals(weather.getCondition()))
         cityStats.sunnyDays++;
 
-      } else if ("rainy".equals(weather.getCondition()))
+      else if ("rainy".equals(weather.getCondition()))
         cityStats.rainyDays++;
+
+      else if ("cloudy".equals(weather.getCondition()))
+        cityStats.cloudyDays++;
 
       cityStats.maxTemp = Math.max(cityStats.maxTemp, weather.getTemperature());
       cityStats.minTemp = Math.min(cityStats.minTemp, weather.getTemperature());
       cityStats.lastUpdate = weather.getTimestamp();
 
     } catch (Exception e) {
-      System.err.println("Failed to process record [" + record.key() + "]: " + e.getMessage());
+      FileLogger.printToFile(
+          "Failed to process record [" + record.key() + "]: " + e.getMessage(), errorFile);
     }
   }
 
   private static void printWeatherReport(Map<String, CityStatistics> stats) {
-    System.out.println("\n• • WEATHER ANALYTICS REPORT • •");
-    System.out.println("Generated at: " + Instant.now());
-    System.out.println("• • • • • • • • • • • • • • • •");
+    FileLogger.printToFile("\n----------- WEATHER ANALYTICS REPORT ------------", outputFile);
+    FileLogger.printToFile("--- Generated at: " + Instant.now() + " ---", outputFile);
+    FileLogger.printToFile("-------------------------------------------------", outputFile);
 
     stats.forEach((city, data) -> {
-      System.out.println("City: " + city);
-      System.out.println("• Sunny days: " + data.sunnyDays);
-      System.out.println("• Rainy days: " + data.rainyDays);
-      System.out.println("• Temperature range: " + data.minTemp + "°C to " + data.maxTemp + "°C");
-      System.out.println("• Last update: " + data.lastUpdate + "\n");
+      FileLogger.printToFile("City: " + city, outputFile);
+      FileLogger.printToFile("• Sunny days: " + data.sunnyDays, outputFile);
+      FileLogger.printToFile("• Rainy days: " + data.rainyDays, outputFile);
+      FileLogger.printToFile("• Cloudy days: " + data.cloudyDays, outputFile);
+
+      FileLogger.printToFile(
+          "• Temp. range: " + data.minTemp + "°C : " + data.maxTemp + "°C", outputFile);
+      FileLogger.printToFile("• Last update: " + data.lastUpdate + "\n", outputFile);
     });
 
     if (stats.containsKey("Tyumen") && stats.get("Tyumen").rainyDays >= 2)
-      System.out.println(">> Mushroom picking season in Tyumen! <<");
+      FileLogger.printToFile(">> Mushroom picking season in Tyumen! <<", outputFile);
 
     if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").rainyDays > 3)
-      System.out.println(">> Typical rainy St. Petersburg weather! <<");
+      FileLogger.printToFile(">> Typical rainy St. Petersburg weather! <<", outputFile);
 
     if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").sunnyDays > 2)
-      System.out.println(">> Untypical sunny St. Petersburg weather! <<");
+      FileLogger.printToFile(">> Untypical sunny St. Petersburg weather! <<", outputFile);
   }
 }
