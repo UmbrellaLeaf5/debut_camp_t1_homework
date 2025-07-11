@@ -23,7 +23,8 @@
     "temperatureRange": {
       "min": -10,
       "max": 35
-    }
+    },
+    "daysToGenerate": 7
   },
   "timing": {
     "producerDelaySeconds": 7,

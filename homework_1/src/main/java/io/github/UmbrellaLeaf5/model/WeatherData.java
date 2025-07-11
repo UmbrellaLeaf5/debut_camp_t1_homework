@@ -1,12 +1,41 @@
 package io.github.UmbrellaLeaf5.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 public class WeatherData {
   @JsonProperty("city") private String city;
-  @JsonProperty("condition") private String condition;
-  @JsonProperty("temperature") private int temperature;
-  @JsonProperty("timestamp") private String timestamp;
+  @JsonProperty("dailyData") private List<DailyWeather> dailyData;
+
+  public static class DailyWeather {
+    @JsonProperty("condition") private String condition;
+    @JsonProperty("temperature") private int temperature;
+    @JsonProperty("date") private String date;
+
+    public String getCondition() {
+      return condition;
+    }
+
+    public void setCondition(String condition) {
+      this.condition = condition;
+    }
+
+    public int getTemperature() {
+      return temperature;
+    }
+
+    public void setTemperature(int temperature) {
+      this.temperature = temperature;
+    }
+
+    public String getDate() {
+      return date;
+    }
+
+    public void setDate(String date) {
+      this.date = date;
+    }
+  }
 
   public String getCity() {
     return city;
@@ -16,26 +45,11 @@ public class WeatherData {
     this.city = city;
   }
 
-  public String getCondition() {
-    return condition;
-  }
-  public void setCondition(String condition) {
-    this.condition = condition;
+  public List<DailyWeather> getDailyData() {
+    return dailyData;
   }
 
-  public int getTemperature() {
-    return temperature;
-  }
-
-  public void setTemperature(int temperature) {
-    this.temperature = temperature;
-  }
-
-  public String getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(String timestamp) {
-    this.timestamp = timestamp;
+  public void setDailyData(List<DailyWeather> dailyData) {
+    this.dailyData = dailyData;
   }
 }

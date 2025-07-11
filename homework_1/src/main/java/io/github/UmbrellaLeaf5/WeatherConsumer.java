@@ -9,9 +9,10 @@ import java.time.Instant;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.serialization.*;
-
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class WeatherConsumer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -33,17 +34,15 @@ public class WeatherConsumer {
 
   public static void main(String[] args) {
     try {
+      Map<String, Object> consumerConfig = new HashMap<>();
+
       // -------------------------- config --------------------------
 
       config = AppConfig.load("/app/config.json");
 
-      Map<String, Object> consumerConfig = new HashMap<>();
-
       consumerConfig.put("bootstrap.servers", config.getKafka().get("bootstrapServers"));
       consumerConfig.put("group.id", config.getKafka().get("groupId"));
       consumerConfig.put("auto.offset.reset", config.getKafka().get("autoOffsetReset"));
-      consumerConfig.put("key.deserializer", StringDeserializer.class.getName());
-      consumerConfig.put("value.deserializer", StringDeserializer.class.getName());
 
       String topic = (String) config.getKafka().get("topic");
       int reportInterval = (int) config.getTiming().get("consumerReportIntervalSeconds");
@@ -53,6 +52,9 @@ public class WeatherConsumer {
       errorFile = (String) config.getFiles().get("consumerExceptionFilePath");
 
       // ------------------------------------------------------------
+
+      consumerConfig.put("key.deserializer", StringDeserializer.class.getName());
+      consumerConfig.put("value.deserializer", StringDeserializer.class.getName());
 
       Map<String, CityStatistics> stats = new HashMap<>();
       Instant lastReportTime = Instant.now();
@@ -64,7 +66,7 @@ public class WeatherConsumer {
         while (true) {
           ConsumerRecords<String, String> records = consumer.poll(pollTimeout);
 
-          for (ConsumerRecord<String, String> record : records) processWeatherRecord(record, stats);
+          for (ConsumerRecord<String, String> record : records) processWeeklyWeather(record, stats);
 
           if (Duration.between(lastReportTime, Instant.now()).getSeconds() >= reportInterval) {
             printWeatherReport(stats);
@@ -76,30 +78,31 @@ public class WeatherConsumer {
 
     } catch (Exception e) {
       FileLogger.printToFile("Consumer fatal error: " + e.getMessage(), errorFile);
-
       e.printStackTrace();
     }
   }
 
-  private static void processWeatherRecord(
+  private static void processWeeklyWeather(
       ConsumerRecord<String, String> record, Map<String, CityStatistics> stats) {
     try {
       WeatherData weather = objectMapper.readValue(record.value(), WeatherData.class);
       CityStatistics cityStats =
           stats.computeIfAbsent(weather.getCity(), k -> new CityStatistics());
 
-      if ("sunny".equals(weather.getCondition()))
-        cityStats.sunnyDays++;
+      for (WeatherData.DailyWeather daily : weather.getDailyData()) {
+        if ("sunny".equals(daily.getCondition()))
+          cityStats.sunnyDays++;
 
-      else if ("rainy".equals(weather.getCondition()))
-        cityStats.rainyDays++;
+        else if ("rainy".equals(daily.getCondition()))
+          cityStats.rainyDays++;
 
-      else if ("cloudy".equals(weather.getCondition()))
-        cityStats.cloudyDays++;
+        else if ("cloudy".equals(daily.getCondition()))
+          cityStats.cloudyDays++;
 
-      cityStats.maxTemp = Math.max(cityStats.maxTemp, weather.getTemperature());
-      cityStats.minTemp = Math.min(cityStats.minTemp, weather.getTemperature());
-      cityStats.lastUpdate = weather.getTimestamp();
+        cityStats.maxTemp = Math.max(cityStats.maxTemp, daily.getTemperature());
+        cityStats.minTemp = Math.min(cityStats.minTemp, daily.getTemperature());
+        cityStats.lastUpdate = daily.getDate();
+      }
 
     } catch (Exception e) {
       FileLogger.printToFile(
@@ -108,7 +111,7 @@ public class WeatherConsumer {
   }
 
   private static void printWeatherReport(Map<String, CityStatistics> stats) {
-    FileLogger.printToFile("\n----------- WEATHER ANALYTICS REPORT ------------", outputFile);
+    FileLogger.printToFile("\n------------- WEEKLY WEATHER REPORT --------------", outputFile);
     FileLogger.printToFile("--- Generated at: " + Instant.now() + " ---", outputFile);
     FileLogger.printToFile("-------------------------------------------------", outputFile);
 
@@ -126,10 +129,14 @@ public class WeatherConsumer {
     if (stats.containsKey("Tyumen") && stats.get("Tyumen").rainyDays >= 2)
       FileLogger.printToFile(">> Mushroom picking time in Tyumen! <<", outputFile);
 
-    if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").rainyDays > 3)
-      FileLogger.printToFile(">> Typical rainy weather in St. Petersburg! <<", outputFile);
+    if (stats.containsKey("Saint Petersburg")) {
+      CityStatistics spb = stats.get("Saint Petersburg");
 
-    if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").sunnyDays > 2)
-      FileLogger.printToFile(">> Untypical sunny weather in St. Petersburg! <<", outputFile);
+      if (spb.rainyDays > 3)
+        FileLogger.printToFile(">> Typical rainy weather in St. Petersburg! <<", outputFile);
+
+      if (spb.sunnyDays > 2)
+        FileLogger.printToFile(">> Untypical sunny weather in St. Petersburg! <<", outputFile);
+    }
   }
 }
