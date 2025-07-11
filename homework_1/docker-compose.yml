@@ -25,6 +25,9 @@ services:
       group.id: cool-consumer
       bootstrap.servers: kafka:9092
       TOPIC: mytopic
+    restart: unless-stopped
+    depends_on:
+      - kafka
       
       
   homework_1-producer:
@@ -35,3 +38,6 @@ services:
     environment:
       bootstrap.servers: kafka:9092
       TOPIC: mytopic
+    restart: unless-stopped
+    depends_on:
+      - kafka

@@ -1,0 +1,58 @@
+name: homework_1
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  KAFKA_TOPIC: mytopic
+  BOOTSTRAP_SERVERS: kafka:9092
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Update CA certificates
+      run: sudo update-ca-certificates
+
+    # Установка Java и Maven
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # Сборка проекта
+    - name: Build with Maven
+      working-directory: ./homework_1
+      run: mvn clean package
+
+    # Установка Docker Compose
+    - name: Install Docker Compose (APT)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+        docker-compose --version
+
+    # Запуск инфраструктуры (Kafka + Zookeeper)
+    - name: Start Kafka with Docker Compose
+      working-directory: ./homework_1
+      run: |
+        docker-compose up -d zookeeper kafka
+        sleep 30  # Ожидание готовности Kafka
+
+    # Запуск продюсера и консьюмера
+    - name: Run Producer and Consumer
+      working-directory: ./homework_1
+      run: |
+        docker-compose up -d homework_1-producer homework_1-consumer
+        sleep 10
+        # docker-compose logs -f homework_1-consumer
