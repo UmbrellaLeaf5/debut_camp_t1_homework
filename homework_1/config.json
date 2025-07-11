@@ -1,0 +1,22 @@
+{
+  "kafka": {
+    "bootstrapServers": "kafka:9092",
+    "topic": "weather-data",
+    "groupId": "weather-group",
+    "autoOffsetReset": "earliest"
+  },
+  "weather": {
+    "cities": ["Magadan", "Chukotka", "Saint Petersburg", "Tyumen", "Moscow"],
+    "conditions": ["sunny", "cloudy", "rainy"],
+    "temperatureRange": {
+      "min": -10,
+      "max": 35
+    }
+  },
+  "timing": {
+    "producerDelaySeconds": 5,
+    "consumerReportIntervalSeconds": 30,
+    "consumerPollTimeoutMs": 1000,
+    "producerThreadTimeoutMs": 1000
+  }
+}

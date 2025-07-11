@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.config.AppConfig;
 import com.example.model.WeatherData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.*;
@@ -9,6 +10,7 @@ import org.apache.kafka.common.serialization.*;
 
 public class WeatherConsumer {
   private static final ObjectMapper objectMapper = new ObjectMapper();
+  private static AppConfig config = null;
 
   private static class CityStatistics {
     int sunnyDays = 0;
@@ -19,32 +21,42 @@ public class WeatherConsumer {
   }
 
   public static void main(String[] args) {
-    Map<String, Object> config = new HashMap<>();
-    config.put(
-        "bootstrap.servers", System.getenv().getOrDefault("BOOTSTRAP_SERVERS", "kafka:9092"));
-    config.put("group.id", System.getenv().getOrDefault("GROUP_ID", "weather-group"));
-    config.put("auto.offset.reset", "earliest");
+    try {
+      // -------------------------- config --------------------------
 
-    config.put("key.deserializer", StringDeserializer.class.getName());
-    config.put("value.deserializer", StringDeserializer.class.getName());
+      config = AppConfig.load("config.json");
 
-    Map<String, CityStatistics> stats = new HashMap<>();
-    Instant lastReportTime = Instant.now();
-    String topic = System.getenv().getOrDefault("TOPIC", "weather-data");
+      Map<String, Object> consumerConfig = new HashMap<>();
 
-    try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(config)) {
-      consumer.subscribe(Collections.singletonList(topic));
-      System.out.println("Subscribed to topic: " + topic);
+      consumerConfig.put("bootstrap.servers", config.getKafka().get("bootstrapServers"));
+      consumerConfig.put("group.id", config.getKafka().get("groupId"));
+      consumerConfig.put("auto.offset.reset", config.getKafka().get("autoOffsetReset"));
+      consumerConfig.put("key.deserializer", StringDeserializer.class.getName());
+      consumerConfig.put("value.deserializer", StringDeserializer.class.getName());
 
-      while (true) {
-        ConsumerRecords<String, String> records = consumer.poll(1000);
+      String topic = (String) config.getKafka().get("topic");
+      int reportInterval = (int) config.getTiming().get("consumerReportIntervalSeconds");
+      int pollTimeout = (int) config.getTiming().get("consumerPollTimeoutMs");
 
-        for (ConsumerRecord<String, String> record : records) processWeatherRecord(record, stats);
+      // ------------------------------------------------------------
 
-        if (Duration.between(lastReportTime, Instant.now()).getSeconds() >= 30) {
-          printWeatherReport(stats);
-          lastReportTime = Instant.now();
-          stats.clear();
+      Map<String, CityStatistics> stats = new HashMap<>();
+      Instant lastReport = Instant.now();
+
+      try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerConfig)) {
+        consumer.subscribe(Collections.singletonList(topic));
+        System.out.println("Subscribed to topic: " + topic);
+
+        while (true) {
+          ConsumerRecords<String, String> records = consumer.poll(pollTimeout);
+
+          for (ConsumerRecord<String, String> record : records) processWeatherRecord(record, stats);
+
+          if (Duration.between(lastReport, Instant.now()).getSeconds() >= reportInterval) {
+            printWeatherReport(stats);
+            lastReport = Instant.now();
+            stats.clear();
+          }
         }
       }
 
@@ -61,10 +73,10 @@ public class WeatherConsumer {
       CityStatistics cityStats =
           stats.computeIfAbsent(weather.getCity(), k -> new CityStatistics());
 
-      if ("sunny".equals(weather.getCondition()))
+      if ("sunny".equals(weather.getCondition())) {
         cityStats.sunnyDays++;
 
-      else if ("rainy".equals(weather.getCondition()))
+      } else if ("rainy".equals(weather.getCondition()))
         cityStats.rainyDays++;
 
       cityStats.maxTemp = Math.max(cityStats.maxTemp, weather.getTemperature());
@@ -93,6 +105,9 @@ public class WeatherConsumer {
       System.out.println(">> Mushroom picking season in Tyumen! <<");
 
     if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").rainyDays > 3)
-      System.out.println(">> Typical rainy St. Petersburg weather <<");
+      System.out.println(">> Typical rainy St. Petersburg weather! <<");
+
+    if (stats.containsKey("Saint Petersburg") && stats.get("Saint Petersburg").sunnyDays > 2)
+      System.out.println(">> Untypical sunny St. Petersburg weather! <<");
   }
 }
