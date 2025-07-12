@@ -3,7 +3,9 @@
     "bootstrapServers": "kafka:9092",
     "topic": "weather-data",
     "groupId": "weather-group",
-    "autoOffsetReset": "earliest"
+    "autoOffsetReset": "earliest",
+    "producerRetries": 3,
+    "producerLingerMs": 1
   },
   "weather": {
     "cities": [
@@ -21,7 +23,8 @@
     "temperatureRange": {
       "min": -10,
       "max": 35
-    }
+    },
+    "daysToGenerate": 7
   },
   "timing": {
     "producerDelaySeconds": 7,
