@@ -1,2 +1,8 @@
-# debut_t1_homework
-My repository with home exercises for the course IT-camp T1 2025 (Java backend development)
+# Debut Camp T1 homework
+
+Мой репозиторий с домашними работами в рамках курса [IT-лагеря T1 2025](https://career.t1.ru/debut/camp) (Java backend development)
+
+## homework_1 (Kafka):
+
+- [source code](./homework_1/)
+- [README.md](./homework_1/README.md)
