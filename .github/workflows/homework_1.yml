@@ -46,9 +46,6 @@ jobs:
           # Ожидание полной готовности Kafka
           timeout 180 bash -c 'until docker-compose exec -t kafka kafka-topics --list --bootstrap-server kafka:9092; do sleep 10; echo "Waiting for Kafka..."; done'
 
-          # Явное создание топика
-          docker-compose exec -t kafka kafka-topics --create --topic $KAFKA_TOPIC --partitions 1 --replication-factor 1 --bootstrap-server kafka:9092 || true
-
           # Проверка топика
           docker-compose exec -t kafka kafka-topics --describe --topic $KAFKA_TOPIC --bootstrap-server kafka:9092
 
