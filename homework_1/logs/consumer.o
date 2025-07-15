@@ -1,60 +1,71 @@
 Subscribed to topic: weather-data
 
 ------------- WEEKLY WEATHER REPORT -------------
---- Generated at: 2025-07-12T00:14:31.078098Z ---
+--- Generated at: 2025-07-15T09:20:26.044668Z ---
 
 ------------- EMPTY WEATHER REPORT -------=-------
 
 ------------- WEEKLY WEATHER REPORT -------------
---- Generated at: 2025-07-12T00:14:34.125152Z ---
+--- Generated at: 2025-07-15T09:20:29.096065Z ---
 -------------------------------------------------
-City: Moscow
-• Sunny days: 5
-• Rainy days: 6
-• Cloudy days: 3
-• Temp. range: -10°C : 31°C
-• Last update: 06.07.2025 00:14:27
-
-
-------------- WEEKLY WEATHER REPORT -------------
---- Generated at: 2025-07-12T00:14:37.142586Z ---
--------------------------------------------------
-City: Chukotka
-• Sunny days: 3
-• Rainy days: 2
+City: Tyumen
+• Sunny days: 1
+• Rainy days: 4
 • Cloudy days: 2
-• Temp. range: -2°C : 34°C
-• Last update: 06.07.2025 00:14:34
+• Temp. range: -5°C : 28°C
+• Last update: 09.07.2025 09:20:15
 
-
-------------- WEEKLY WEATHER REPORT -------------
---- Generated at: 2025-07-12T00:14:40.145869Z ---
-
-------------- EMPTY WEATHER REPORT -------=-------
-
-------------- WEEKLY WEATHER REPORT -------------
---- Generated at: 2025-07-12T00:14:44.134519Z ---
--------------------------------------------------
-City: Moscow
-• Sunny days: 4
-• Rainy days: 2
-• Cloudy days: 1
-• Temp. range: -9°C : 28°C
-• Last update: 06.07.2025 00:14:41
-
-
-------------- WEEKLY WEATHER REPORT -------------
---- Generated at: 2025-07-12T00:14:47.138418Z ---
-
-------------- EMPTY WEATHER REPORT -------=-------
-
-------------- WEEKLY WEATHER REPORT -------------
---- Generated at: 2025-07-12T00:14:51.135349Z ---
--------------------------------------------------
-City: Moscow
+City: Magadan
 • Sunny days: 2
-• Rainy days: 1
-• Cloudy days: 4
-• Temp. range: 1°C : 27°C
-• Last update: 06.07.2025 00:14:48
+• Rainy days: 3
+• Cloudy days: 2
+• Temp. range: -6°C : 28°C
+• Last update: 09.07.2025 09:20:22
 
+>> Mushroom picking time in Tyumen! <<
+
+------------- WEEKLY WEATHER REPORT -------------
+--- Generated at: 2025-07-15T09:20:32.159879Z ---
+-------------------------------------------------
+City: Saint Petersburg
+• Sunny days: 4
+• Rainy days: 0
+• Cloudy days: 3
+• Temp. range: -1°C : 31°C
+• Last update: 09.07.2025 09:20:29
+
+>> Untypical sunny weather in St. Petersburg! <<
+
+------------- WEEKLY WEATHER REPORT -------------
+--- Generated at: 2025-07-15T09:20:35.164725Z ---
+
+------------- EMPTY WEATHER REPORT -------=-------
+
+------------- WEEKLY WEATHER REPORT -------------
+--- Generated at: 2025-07-15T09:20:39.156382Z ---
+-------------------------------------------------
+City: Saint Petersburg
+• Sunny days: 5
+• Rainy days: 0
+• Cloudy days: 2
+• Temp. range: -2°C : 33°C
+• Last update: 09.07.2025 09:20:36
+
+>> Untypical sunny weather in St. Petersburg! <<
+
+------------- WEEKLY WEATHER REPORT -------------
+--- Generated at: 2025-07-15T09:20:42.159115Z ---
+
+------------- EMPTY WEATHER REPORT -------=-------
+
+------------- WEEKLY WEATHER REPORT -------------
+--- Generated at: 2025-07-15T09:20:46.156570Z ---
+-------------------------------------------------
+City: Saint Petersburg
+• Sunny days: 1
+• Rainy days: 5
+• Cloudy days: 1
+• Temp. range: 2°C : 34°C
+• Last update: 09.07.2025 09:20:43
+
+>> Typical rainy weather in St. Petersburg! <<
