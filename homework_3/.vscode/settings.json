@@ -4,6 +4,9 @@
     "Yutani",
     "валидироваться",
     "Постромо",
-    "Рипли"
-  ]
+    "Рипли",
+    "projectlombok",
+    "springframework"
+  ],
+  "java.compile.nullAnalysis.mode": "automatic",
 }
