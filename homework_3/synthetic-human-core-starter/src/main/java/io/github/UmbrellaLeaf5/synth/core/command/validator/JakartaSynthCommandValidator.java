@@ -14,8 +14,8 @@ public class JakartaSynthCommandValidator implements SynthCommandValidator {
   @Override
   public void validate(SynthCommand command) {
     final var violations = validator.validate(command);
-    if (!violations.isEmpty()) {
+
+    if (!violations.isEmpty())
       throw new ConstraintViolationException(violations);
-    }
   }
 }

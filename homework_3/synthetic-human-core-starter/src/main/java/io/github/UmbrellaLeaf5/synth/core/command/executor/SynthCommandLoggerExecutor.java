@@ -17,6 +17,7 @@ public class SynthCommandLoggerExecutor implements SynthCommandExecutor {
   @SneakyThrows
   public void execute(SynthCommand synthCommand) {
     Thread.sleep(1_000);
+
     log.info("""
             Start executing command...
             \tCommand from - {}
@@ -25,6 +26,7 @@ public class SynthCommandLoggerExecutor implements SynthCommandExecutor {
             \tpriority - {}
             End executing command...""", synthCommand.getAuthor(), synthCommand.getTime(), synthCommand.getDescription(),
         synthCommand.getPriority());
+
     metricService.publishProceedTasksMetric(synthCommand.getAuthor());
   }
 }

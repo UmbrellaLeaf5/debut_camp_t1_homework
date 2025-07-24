@@ -33,7 +33,10 @@ public class ThreadPoolCommandService implements CommandService {
     this.synthCommandValidator = synthCommandValidator;
     this.commandConfigurationProperties = commandConfigurationProperties;
     this.metricService = metricService;
-    final var poolProperties = commandConfigurationProperties.getPoolProperties();
+
+    final CommandConfigurationProperties.ThreadPoolExecutorProperties poolProperties =
+        commandConfigurationProperties.getPoolProperties();
+
     this.threadPoolExecutor = new ThreadPoolExecutor(poolProperties.getMinSize(),
         poolProperties.getMaxSize(), poolProperties.getIdleThreadKeepAliveTime(),
         TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(poolProperties.getQueueCapacity()),
@@ -50,15 +53,18 @@ public class ThreadPoolCommandService implements CommandService {
 
   public void processCommand(SynthCommand command) throws ExecutionQueueIsFullException {
     synthCommandValidator.validate(command);
+
     switch (command.getPriority()) {
       case COMMON -> {
         try {
           threadPoolExecutor.execute(() -> synthCommandExecutor.execute(command));
+
         } catch (RejectedExecutionException e) {
           throw new ExecutionQueueIsFullException(
               "Command [%s] rejected, execution queue is full!".formatted(command), e);
         }
       }
+
       case CRITICAL -> synthCommandExecutor.execute(command);
     }
   }
@@ -66,12 +72,13 @@ public class ThreadPoolCommandService implements CommandService {
   @PreDestroy
   public void preDestroy() {
     threadPoolExecutor.shutdown();
+
     try {
       if (!threadPoolExecutor.awaitTermination(
               commandConfigurationProperties.getPoolProperties().getTerminationTimeout().toNanos(),
-              TimeUnit.NANOSECONDS)) {
+              TimeUnit.NANOSECONDS))
         threadPoolExecutor.shutdownNow();
-      }
+
     } catch (InterruptedException e) {
       threadPoolExecutor.shutdownNow();
       Thread.currentThread().interrupt();

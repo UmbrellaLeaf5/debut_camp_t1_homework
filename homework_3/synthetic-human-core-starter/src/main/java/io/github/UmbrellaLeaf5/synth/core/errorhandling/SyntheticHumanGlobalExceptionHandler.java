@@ -11,9 +11,10 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+// TODO добавить обработку общих ошибок (ее тут не хватает)
+
 @Slf4j
 @RestControllerAdvice
-// TODO добавить обработку общих ошибок (ее тут не хватает)
 public class SyntheticHumanGlobalExceptionHandler {
   @ExceptionHandler(ExecutionQueueIsFullException.class)
   public ErrorResponse handleExecutionQueueIsFullException(ExecutionQueueIsFullException e) {
@@ -28,12 +29,14 @@ public class SyntheticHumanGlobalExceptionHandler {
   public ErrorResponse buildErrorResponse(Exception ex, HttpStatus statusCode, String detail) {
     StringBuilder details = new StringBuilder();
     details.append(ex.getMessage());
+
     if (ex.getCause() != null) {
       details.append(" | ");
       details.append("Caused by: [%s]".formatted(ex.getCause().getMessage()));
     }
 
     logError(ex, statusCode);
+
     return ErrorResponse.builder(ex, statusCode, details.toString())
         .detail(detail)
         .type(URI.create("/%s/%s".formatted("android", "error")))
@@ -43,10 +46,9 @@ public class SyntheticHumanGlobalExceptionHandler {
   }
 
   private void logError(Exception ex, HttpStatusCode statusCode) {
-    if (statusCode.is5xxServerError()) {
+    if (statusCode.is5xxServerError())
       log.error("Internal error", ex);
-    } else {
+    else
       log.debug("User error", ex);
-    }
   }
 }

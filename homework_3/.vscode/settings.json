@@ -1,11 +1,12 @@
 {
   "cSpell.words": [
-    "Weyland",
+    "Wayland",
     "Yutani",
     "валидироваться",
     "Постромо",
     "Рипли",
     "projectlombok",
+    "errorhandling",
     "springframework"
   ],
   "java.compile.nullAnalysis.mode": "automatic",

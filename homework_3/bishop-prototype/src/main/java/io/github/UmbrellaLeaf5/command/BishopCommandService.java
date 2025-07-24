@@ -21,12 +21,13 @@ public class BishopCommandService {
   @WaylandWatchingYou
   public void runCommand(CommandType commandType, Initiator initiator)
       throws UnavailableCommandException, ExecutionQueueIsFullException {
-    final var synthCommandBuilder = SynthCommand.builder();
+    final SynthCommand.SynthCommandBuilder synthCommandBuilder = SynthCommand.builder();
+
     synthCommandBuilder.description(chooseDescription(commandType));
     synthCommandBuilder.author(initiator.name());
     synthCommandBuilder.priority(choosePriority(initiator));
-    //    synthCommandBuilder.time("не время");
     synthCommandBuilder.time(DateTimeFormatter.ISO_INSTANT.format(Instant.now()));
+
     commandService.processCommand(synthCommandBuilder.build());
   }
 
@@ -43,7 +44,7 @@ public class BishopCommandService {
   private SynthCommandPriority choosePriority(Initiator initiator) {
     return switch (initiator) {
       case REGULAR_HUMAN -> SynthCommandPriority.COMMON;
-      case WEYLAND_YUTANI_OFFICER -> SynthCommandPriority.CRITICAL;
+      case WAYLAND_YUTANI_OFFICER -> SynthCommandPriority.CRITICAL;
     };
   }
 }
