@@ -29,26 +29,32 @@ jobs:
           ALLOW_PLAINTEXT_LISTENER: "yes"
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update CA certificates
+        run: sudo update-ca-certificates
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: "17"
           distribution: "temurin"
 
-      - name: Build parent POM first
+      - name: "Build with Maven (install: synthetic-human-core-starter)"
         working-directory: ./homework_3/synthetic-human-core-starter
         run: mvn clean install -DskipTests
 
-      - name: Install core starter to local repo
+      - name: Copy core starter to local repo
         working-directory: ./homework_3
         run: |
           mkdir -p ~/.m2/repository/io/github/UmbrellaLeaf5/synthetic-human-core-starter/1.0
           cp synthetic-human-core-starter/target/*.jar ~/.m2/repository/io/github/UmbrellaLeaf5/synthetic-human-core-starter/1.0/
           cp synthetic-human-core-starter/pom.xml ~/.m2/repository/io/github/UmbrellaLeaf5/synthetic-human-core-starter/1.0/
 
-      - name: Build with Maven
+      - name: "Build with Maven (package: bishop-prototype)"
         working-directory: ./homework_3/bishop-prototype
         run: mvn clean package -DskipTests
 
@@ -57,22 +63,22 @@ jobs:
         run: |
           java -jar bishop-prototype/target/*.jar &
           echo $! > app.pid
-          sleep 15 # Даем время для старта приложения
+          sleep 15
         env:
           SPRING_KAFKA_BOOTSTRAP_SERVERS: localhost:29092
           SERVER_PORT: 8082
 
       - name: Install Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
 
-      - name: Install requests package
-        run: pip install requests
+      - name: Install Python requests and loguru
+        run: pip install requests loguru
 
       - name: Send request
-        working-directory: ./homework_3/python
-        run: python request.py
+        working-directory: ./homework_3
+        run: python python/request.py
 
       - name: Stop Spring Boot application
         if: always()
@@ -80,3 +86,18 @@ jobs:
           if [ -f app.pid ]; then
             kill $(cat app.pid) || true
           fi
+
+      - name: Commit logs to output branch
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          git fetch origin output
+          git checkout output
+          git pull origin output
+
+          git add ./homework_3/logs/
+
+          git commit -m "add log files from workflow run (date: $(date +'%d.%m.%Y %H:%M:%S'))"
+
+          git push origin output -f

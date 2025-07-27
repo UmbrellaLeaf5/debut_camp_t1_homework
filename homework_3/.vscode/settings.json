@@ -1,13 +1,19 @@
 {
   "cSpell.words": [
+    "bitnami",
+    "errorhandling",
+    "projectlombok",
+    "springframework",
     "Wayland",
     "Yutani",
     "валидироваться",
+    "логгер",
+    "логгера",
+    "логируем",
+    "Логирует",
+    "логируются",
     "Постромо",
-    "Рипли",
-    "projectlombok",
-    "errorhandling",
-    "springframework"
+    "Рипли"
   ],
   "java.compile.nullAnalysis.mode": "automatic",
 }
