@@ -61,4 +61,6 @@ except requests.exceptions.RequestException as e:
     v_logger.error(f"Status Code: {e.response.status_code}")
     v_logger.error(f"Response Text: {e.response.text}")
 
-  sys.exit(1)
+except Exception as e:
+  v_logger.error("\nRequest failed:")
+  v_logger.error(f"Error: {e}")
