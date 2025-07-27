@@ -5,7 +5,8 @@ synth:
   core:
     audit:
       mode: kafka
-      topic: bishop_audit_topic
+      kafka:
+        topic: bishop_audit_topic
 
 spring:
   application:
