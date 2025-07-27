@@ -1,0 +1,48 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8082/actuator",
+      "templated": false
+    },
+    "health": {
+      "href": "http://localhost:8082/actuator/health",
+      "templated": false
+    },
+    "health-path": {
+      "href": "http://localhost:8082/actuator/health/{*path}",
+      "templated": true
+    },
+    "info": {
+      "href": "http://localhost:8082/actuator/info",
+      "templated": false
+    },
+    "env": {
+      "href": "http://localhost:8082/actuator/env",
+      "templated": false
+    },
+    "env-toMatch": {
+      "href": "http://localhost:8082/actuator/env/{toMatch}",
+      "templated": true
+    },
+    "heapdump": {
+      "href": "http://localhost:8082/actuator/heapdump",
+      "templated": false
+    },
+    "threaddump": {
+      "href": "http://localhost:8082/actuator/threaddump",
+      "templated": false
+    },
+    "prometheus": {
+      "href": "http://localhost:8082/actuator/prometheus",
+      "templated": false
+    },
+    "metrics-requiredMetricName": {
+      "href": "http://localhost:8082/actuator/metrics/{requiredMetricName}",
+      "templated": true
+    },
+    "metrics": {
+      "href": "http://localhost:8082/actuator/metrics",
+      "templated": false
+    }
+  }
+}
