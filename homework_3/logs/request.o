@@ -1,4 +1,4 @@
-[27.07.2025 20:26:31] REQUEST: Request successful! Response:                                              [INFO]
-[27.07.2025 20:26:31] REQUEST: Status: 200                                                                [INFO]
-[27.07.2025 20:26:31] REQUEST: URL: http://localhost:8082/command?commandType=ENGINE&initiator=WAYLAND_YUTANI_OFFICER&priority=COMMON&author=System&time=2025-07-27T14%3A30%3A00Z [INFO]
-[27.07.2025 20:26:31] REQUEST: Non-JSON Response:                                                         [INFO]
+[27.07.2025 20:37:58] REQUEST: Request successful! Response:                                              [INFO]
+[27.07.2025 20:37:58] REQUEST: Status: 200                                                                [INFO]
+[27.07.2025 20:37:58] REQUEST: URL: http://localhost:8082/command?commandType=ENGINE&initiator=WAYLAND_YUTANI_OFFICER&priority=COMMON&author=System&time=2025-07-27T14%3A30%3A00Z [INFO]
+[27.07.2025 20:37:58] REQUEST: Non-JSON Response:                                                         [INFO]
