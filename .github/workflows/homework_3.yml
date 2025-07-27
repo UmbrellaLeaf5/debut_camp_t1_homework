@@ -61,7 +61,7 @@ jobs:
       - name: Start Spring Boot application
         working-directory: ./homework_3
         run: |
-          java -jar bishop-prototype/target/*.jar &
+          java -jar bishop-prototype/target/*.jar > ./spring_boot_app.o 2>&1 &
           echo $! > app.pid
           sleep 15
         env:
@@ -95,6 +95,10 @@ jobs:
           git fetch origin output
           git checkout output
           git pull origin output
+
+          mkdir -p ./homework_3/logs
+          cp ./homework_3/*.o ./homework_3/logs/ || true
+          cp ./homework_3/*.e ./homework_3/logs/ || true
 
           git add ./homework_3/logs/
 

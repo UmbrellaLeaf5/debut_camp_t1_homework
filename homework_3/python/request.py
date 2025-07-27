@@ -6,7 +6,7 @@ import requests
 from verbose_logger import LogMode, VerboseLogger, loguru
 
 
-LOG_DIR = "./logs"
+LOG_DIR = "./"
 Path(LOG_DIR).mkdir(parents=True, exist_ok=True)
 
 EXCEPTION_FILE = Path(LOG_DIR) / "request.e"
