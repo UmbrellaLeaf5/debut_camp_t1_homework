@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 @ConfigurationProperties("synth.core.command")
 @Data
+@Component
 public class CommandConfigurationProperties {
   private ThreadPoolExecutorProperties poolProperties = new ThreadPoolExecutorProperties();
 
