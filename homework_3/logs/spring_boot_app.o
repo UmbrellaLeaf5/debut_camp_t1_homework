@@ -7,26 +7,26 @@
 
  :: Spring Boot ::                (v3.3.0)
 
-2025-07-27T22:02:52.240Z  INFO 4330 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Starting BishopMain v1.0 using Java 17.0.16 with PID 4330 (/home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3/bishop-prototype/target/bishop-prototype-1.0.jar started by runner in /home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3)
-2025-07-27T22:02:52.246Z  INFO 4330 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : No active profile set, falling back to 1 default profile: "default"
-2025-07-27T22:02:54.182Z  INFO 4330 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
-2025-07-27T22:02:54.192Z  INFO 4330 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-07-27T22:02:54.193Z  INFO 4330 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
-2025-07-27T22:02:54.227Z  INFO 4330 --- [bishop-prototype] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-07-27T22:02:54.228Z  INFO 4330 --- [bishop-prototype] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1876 ms
-2025-07-27T22:02:55.501Z  INFO 4330 --- [bishop-prototype] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 7 endpoints beneath base path '/actuator'
-2025-07-27T22:02:55.623Z  INFO 4330 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
-2025-07-27T22:02:55.647Z  INFO 4330 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Started BishopMain in 4.095 seconds (process running for 4.58)
-2025-07-27T22:03:12.544Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-07-27T22:03:12.544Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-07-27T22:03:12.545Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-07-27T22:03:13.620Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] i.g.U.s.c.c.e.SynthCommandLoggerExecutor : Start executing command...
+2025-07-27T22:09:15.693Z  INFO 4255 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Starting BishopMain v1.0 using Java 17.0.16 with PID 4255 (/home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3/bishop-prototype/target/bishop-prototype-1.0.jar started by runner in /home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3)
+2025-07-27T22:09:15.699Z  INFO 4255 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : No active profile set, falling back to 1 default profile: "default"
+2025-07-27T22:09:17.524Z  INFO 4255 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2025-07-27T22:09:17.535Z  INFO 4255 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-27T22:09:17.536Z  INFO 4255 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
+2025-07-27T22:09:17.576Z  INFO 4255 --- [bishop-prototype] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-27T22:09:17.577Z  INFO 4255 --- [bishop-prototype] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1757 ms
+2025-07-27T22:09:18.797Z  INFO 4255 --- [bishop-prototype] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 7 endpoints beneath base path '/actuator'
+2025-07-27T22:09:18.906Z  INFO 4255 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2025-07-27T22:09:18.929Z  INFO 4255 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Started BishopMain in 3.842 seconds (process running for 4.345)
+2025-07-27T22:09:33.410Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-27T22:09:33.410Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-27T22:09:33.411Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-07-27T22:09:34.514Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] i.g.U.s.c.c.e.SynthCommandLoggerExecutor : Start executing command...
 	Command from - WAYLAND_YUTANI_OFFICER
-	registered at - 2025-07-27T22:03:12.580414275Z
+	registered at - 2025-07-27T22:09:33.458967766Z
 	description - Processing engine... Try to fix...
 	priority - CRITICAL
 End executing command...
-2025-07-27T22:03:13.650Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+2025-07-27T22:09:34.553Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
 	acks = -1
 	auto.include.jmx.reporter = true
 	batch.size = 16384
@@ -118,12 +118,62 @@ End executing command...
 	transactional.id = null
 	value.serializer = class org.springframework.kafka.support.serializer.JsonSerializer
 
-2025-07-27T22:03:13.676Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
-2025-07-27T22:03:13.693Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=bishop-prototype-producer-1] Instantiated an idempotent producer.
-2025-07-27T22:03:13.734Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.7.0
-2025-07-27T22:03:13.734Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 2ae524ed625438c5
-2025-07-27T22:03:13.735Z  INFO 4330 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1753653793733
-2025-07-27T22:03:14.095Z  WARN 4330 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 1 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
-2025-07-27T22:03:14.096Z  INFO 4330 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=bishop-prototype-producer-1] Cluster ID: svDRfZT-R4OnWvWY14RXWQ
-2025-07-27T22:03:14.245Z  INFO 4330 --- [bishop-prototype] [type-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=bishop-prototype-producer-1] ProducerId set to 0 with epoch 0
-2025-07-27T22:03:14.254Z  WARN 4330 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 6 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
+2025-07-27T22:09:34.580Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+2025-07-27T22:09:34.596Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=bishop-prototype-producer-1] Instantiated an idempotent producer.
+2025-07-27T22:09:34.638Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.7.0
+2025-07-27T22:09:34.638Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 2ae524ed625438c5
+2025-07-27T22:09:34.638Z  INFO 4255 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1753654174637
+2025-07-27T22:09:35.038Z  WARN 4255 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 1 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
+2025-07-27T22:09:35.039Z  INFO 4255 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=bishop-prototype-producer-1] Cluster ID: NaEdVD9LRBGe2PcIFdI6rg
+2025-07-27T22:09:35.170Z  INFO 4255 --- [bishop-prototype] [type-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=bishop-prototype-producer-1] ProducerId set to 0 with epoch 0
+2025-07-27T22:09:35.177Z  WARN 4255 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 6 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
+2025-07-27T22:09:35.723Z ERROR 4255 --- [bishop-prototype] [nio-8082-exec-1] e.h.SyntheticHumanGlobalExceptionHandler : Server error (500): No static resource actuator/non_existing.
+
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource actuator/non_existing.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.8.jar!/:6.1.8]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.8.jar!/:6.1.8]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.24.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
