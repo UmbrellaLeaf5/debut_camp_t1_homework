@@ -1,0 +1,35 @@
+name: homework_2
+
+on:
+  push:
+    branches:
+      - homework_2
+
+permissions:
+  pages: write
+  deployments: write
+  id-token: write
+
+jobs:
+  homework_2_deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload Docs
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./homework_2/"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy To GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

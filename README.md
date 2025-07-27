@@ -22,7 +22,7 @@
 - [png](https://umbrellaleaf5.github.io/debut_camp_t1_homework/homework_2.png)
 - [drawio](https://umbrellaleaf5.github.io/debut_camp_t1_homework/homework_2.drawio)
 
-## homework_3 (Spring Boot):
+## homework_3 (Spring Boot)
 
 - [README.md](./homework_3/README.md)
 
