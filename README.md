@@ -7,7 +7,13 @@
 - [source code](./homework_1/)
 - [README.md](./homework_1/README.md)
 
+
 ## homework_2 (Microservices)
 
 - [source images](./homework_2/)
 - [README.md](./homework_2/README.md)
+
+## homework_3 (Spring Boot):
+
+- [source code](./homework_3/)
+- [README.md](./homework_3/README.md)
