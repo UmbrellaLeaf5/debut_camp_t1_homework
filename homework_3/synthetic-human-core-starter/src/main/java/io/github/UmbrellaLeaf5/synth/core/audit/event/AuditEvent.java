@@ -1,4 +1,4 @@
-package io.github.UmbrellaLeaf5.synth.core.audit.model;
+package io.github.UmbrellaLeaf5.synth.core.audit.event;
 
 import java.util.Map;
 import lombok.Builder;

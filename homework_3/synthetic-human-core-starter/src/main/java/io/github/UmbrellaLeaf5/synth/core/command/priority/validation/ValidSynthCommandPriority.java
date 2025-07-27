@@ -1,4 +1,4 @@
-package io.github.UmbrellaLeaf5.synth.core.command.model.validation;
+package io.github.UmbrellaLeaf5.synth.core.command.priority.validation;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

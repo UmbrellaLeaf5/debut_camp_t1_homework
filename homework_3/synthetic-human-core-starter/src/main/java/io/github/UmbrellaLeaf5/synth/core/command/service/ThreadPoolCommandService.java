@@ -1,7 +1,7 @@
 package io.github.UmbrellaLeaf5.synth.core.command.service;
 
+import io.github.UmbrellaLeaf5.synth.core.command.SynthCommand;
 import io.github.UmbrellaLeaf5.synth.core.command.executor.SynthCommandExecutor;
-import io.github.UmbrellaLeaf5.synth.core.command.model.SynthCommand;
 import io.github.UmbrellaLeaf5.synth.core.command.properties.CommandConfigurationProperties;
 import io.github.UmbrellaLeaf5.synth.core.command.service.exception.ExecutionQueueIsFullException;
 import io.github.UmbrellaLeaf5.synth.core.command.validator.SynthCommandValidator;

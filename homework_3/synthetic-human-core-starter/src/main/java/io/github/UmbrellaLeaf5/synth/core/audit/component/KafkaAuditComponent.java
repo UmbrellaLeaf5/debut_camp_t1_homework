@@ -1,6 +1,6 @@
 package io.github.UmbrellaLeaf5.synth.core.audit.component;
 
-import io.github.UmbrellaLeaf5.synth.core.audit.model.AuditEvent;
+import io.github.UmbrellaLeaf5.synth.core.audit.event.AuditEvent;
 import io.github.UmbrellaLeaf5.synth.core.audit.properties.kafka.KafkaAuditConfigurationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

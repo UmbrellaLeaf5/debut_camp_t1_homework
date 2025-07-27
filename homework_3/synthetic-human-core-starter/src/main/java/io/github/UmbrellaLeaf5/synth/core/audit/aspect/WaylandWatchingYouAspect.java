@@ -1,7 +1,7 @@
 package io.github.UmbrellaLeaf5.synth.core.audit.aspect;
 
 import io.github.UmbrellaLeaf5.synth.core.audit.component.AuditComponent;
-import io.github.UmbrellaLeaf5.synth.core.audit.model.AuditEvent;
+import io.github.UmbrellaLeaf5.synth.core.audit.event.AuditEvent;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.time.Instant;

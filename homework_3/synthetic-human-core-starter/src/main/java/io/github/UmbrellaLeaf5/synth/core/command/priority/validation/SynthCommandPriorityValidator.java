@@ -1,6 +1,6 @@
-package io.github.UmbrellaLeaf5.synth.core.command.model.validation;
+package io.github.UmbrellaLeaf5.synth.core.command.priority.validation;
 
-import io.github.UmbrellaLeaf5.synth.core.command.model.SynthCommandPriority;
+import io.github.UmbrellaLeaf5.synth.core.command.priority.SynthCommandPriority;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
