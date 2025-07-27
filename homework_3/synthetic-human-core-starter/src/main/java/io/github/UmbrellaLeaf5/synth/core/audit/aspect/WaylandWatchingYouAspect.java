@@ -1,7 +1,7 @@
 package io.github.UmbrellaLeaf5.synth.core.audit.aspect;
 
+import io.github.UmbrellaLeaf5.synth.core.audit.component.AuditComponent;
 import io.github.UmbrellaLeaf5.synth.core.audit.model.AuditEvent;
-import io.github.UmbrellaLeaf5.synth.core.audit.service.AuditService;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.time.Instant;
@@ -15,11 +15,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+
 @Aspect
 @Component
 @RequiredArgsConstructor
 public class WaylandWatchingYouAspect {
-  private final AuditService auditService;
+  private final AuditComponent auditService;
 
   @Around("@annotation(io.github.UmbrellaLeaf5.synth.core.audit.aspect.WaylandWatchingYou)")
   public Object proceedMethodExecution(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {

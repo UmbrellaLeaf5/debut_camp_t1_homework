@@ -1,16 +1,15 @@
-package io.github.UmbrellaLeaf5.synth.core.audit.service.console;
+package io.github.UmbrellaLeaf5.synth.core.audit.component;
 
 import io.github.UmbrellaLeaf5.synth.core.audit.model.AuditEvent;
-import io.github.UmbrellaLeaf5.synth.core.audit.service.AuditService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-@Service
+@Component
 @ConditionalOnProperty(
     name = "synth.core.audit.mode", havingValue = "CONSOLE", matchIfMissing = true)
-public class ConsoleAuditService implements AuditService {
+public class ConsoleAuditComponent implements AuditComponent {
   @Override
   public void audit(AuditEvent event) {
     log.info("""
