@@ -1,4 +1,4 @@
-package io.github.UmbrellaLeaf5.synth.core.errorhandling;
+package io.github.UmbrellaLeaf5.synth.core.error.handling;
 
 import io.github.UmbrellaLeaf5.synth.core.command.service.exception.ExecutionQueueIsFullException;
 import jakarta.validation.ConstraintViolationException;

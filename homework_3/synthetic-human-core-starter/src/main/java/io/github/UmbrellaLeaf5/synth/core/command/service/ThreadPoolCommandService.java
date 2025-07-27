@@ -37,9 +37,13 @@ public class ThreadPoolCommandService implements CommandService {
     final CommandConfigurationProperties.ThreadPoolExecutorProperties poolProperties =
         commandConfigurationProperties.getPoolProperties();
 
-    this.threadPoolExecutor = new ThreadPoolExecutor(poolProperties.getMinSize(),
-        poolProperties.getMaxSize(), poolProperties.getIdleThreadKeepAliveTime(),
-        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(poolProperties.getQueueCapacity()),
+    this.threadPoolExecutor = new ThreadPoolExecutor( //
+        poolProperties.getMinSize(), //
+        poolProperties.getMaxSize(), //
+        poolProperties.getIdleThreadKeepAliveTime(),
+        TimeUnit.MILLISECONDS, //
+        new LinkedBlockingQueue<>(poolProperties.getQueueCapacity()), //
+        // у всех сервисов будет четкое имя CommandServiceThread
         new BasicThreadFactory.Builder().namingPattern("CSThread-%d").build(),
         new ThreadPoolExecutor.AbortPolicy());
   }

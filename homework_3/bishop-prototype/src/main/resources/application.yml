@@ -50,4 +50,4 @@ management:
 
 logging:
   level:
-    "[ru.t1.synth.core.errorhandling]": debug
+    "[io.github.UmbrellaLeaf5.synth.core.error.handling]": debug
