@@ -3,7 +3,7 @@ import sys
 import requests
 
 
-url = "http://localhost:8082/command"
+url = "http://localhost:8080/command"
 params = {"commandType": "ALERT", "initiator": "WAYLAND_YUTANI_OFFICER"}
 
 try:
