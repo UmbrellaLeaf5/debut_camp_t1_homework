@@ -1,18 +1,18 @@
 import json
-import sys
 from pathlib import Path
 
 import requests
-from verbose_logger import LogMode, VerboseLogger, loguru
+
+from ..verbose_logger import LogMode, VerboseLogger, loguru
 
 
-LOG_DIR = "./"
+LOG_DIR = "./requests"
 Path(LOG_DIR).mkdir(parents=True, exist_ok=True)
 
-EXCEPTION_FILE = Path(LOG_DIR) / "request.e"
+EXCEPTION_FILE = Path(LOG_DIR) / "post.e"
 EXCEPTION_FILE.touch()
 
-OUTPUT_FILE = Path(LOG_DIR) / "request.o"
+OUTPUT_FILE = Path(LOG_DIR) / "post.o"
 OUTPUT_FILE.touch()
 
 
@@ -24,6 +24,7 @@ v_logger = VerboseLogger(
   standard_output=OUTPUT_FILE.open("w", encoding="utf-8"),
 )
 
+v_logger.UpdateFormat("POST_REQUEST", "fg #61B78C")
 
 URL = "http://localhost:8082/command"
 PARAMS = {
@@ -34,7 +35,6 @@ PARAMS = {
   "time": "2025-07-27T14:30:00Z",
 }
 
-v_logger.UpdateFormat("REQUEST", "fg #61B78C")
 
 try:
   response = requests.post(URL, params=PARAMS)
