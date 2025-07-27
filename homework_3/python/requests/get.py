@@ -29,7 +29,13 @@ v_logger = VerboseLogger(
 v_logger.UpdateFormat("GET_REQUEST", "fg #64B78C")
 
 URL = "http://localhost:8082"
-ENDPOINTS = ["/actuator", "/actuator/health", "/actuator/info", "/actuator/metrics"]
+ENDPOINTS = [
+  "/actuator",
+  "/actuator/health",
+  "/actuator/info",
+  "/actuator/metrics",
+  "/actuator/non_existing",
+]
 
 
 def SaveResponseToJSON(url: str, filename: str):
@@ -55,16 +61,28 @@ def SaveResponseToJSON(url: str, filename: str):
       v_logger.info(f"Non-JSON Response: {response.text}")
 
   except requests.exceptions.RequestException as e:
-    v_logger.error("\nRequest failed:")
-    v_logger.error(f"Error: {e}")
+    v_logger.error("Request failed:")
+    v_logger.error(f"{e}")
 
     if hasattr(e, "response") and e.response is not None:
       v_logger.error(f"Status Code: {e.response.status_code}")
       v_logger.error(f"Response Text: {e.response.text}")
 
+      try:
+        json_data = response.json()
+        v_logger.info("JSON response achieved!")
+
+        with open(filename, "w") as f:
+          json.dump(json_data, f, indent=2)
+
+        v_logger.info(f"JSON response saved successfully: {filename}")
+
+      except ValueError:
+        v_logger.info("No JSON Response")
+
   except Exception as e:
-    v_logger.error("\nRequest failed:")
-    v_logger.error(f"Error: {e}")
+    v_logger.error("Request failed:")
+    v_logger.error(f"{e}")
 
 
 for endpoint in ENDPOINTS:

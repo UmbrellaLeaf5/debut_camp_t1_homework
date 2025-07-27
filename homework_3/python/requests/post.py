@@ -54,13 +54,13 @@ try:
     v_logger.info(f"Non-JSON Response: {response.text}")
 
 except requests.exceptions.RequestException as e:
-  v_logger.error("\nRequest failed:")
-  v_logger.error(f"Error: {e}")
+  v_logger.error("Request failed:")
+  v_logger.error(f"{e}")
 
   if hasattr(e, "response") and e.response is not None:
     v_logger.error(f"Status Code: {e.response.status_code}")
     v_logger.error(f"Response Text: {e.response.text}")
 
 except Exception as e:
-  v_logger.error("\nRequest failed:")
-  v_logger.error(f"Error: {e}")
+  v_logger.error("Request failed:")
+  v_logger.error(f"{e}")
