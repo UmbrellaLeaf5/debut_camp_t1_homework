@@ -1,5 +1,6 @@
 package io.github.UmbrellaLeaf5.synth.core.command.model;
 
+import io.github.UmbrellaLeaf5.synth.core.command.model.validation.ValidSynthCommandPriority;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -11,7 +12,7 @@ import lombok.Getter;
 public class SynthCommand {
   @Size(max = 1000) @NotBlank private String description;
 
-  private SynthCommandPriority priority;
+  @ValidSynthCommandPriority private SynthCommandPriority priority;
 
   @Size(max = 100) @NotBlank private String author;
 

@@ -44,7 +44,7 @@ public class ThreadPoolCommandService {
         TimeUnit.MILLISECONDS, //
         new LinkedBlockingQueue<>(poolProperties.getQueueCapacity()), //
         // у всех сервисов будет четкое имя CommandServiceThread
-        new BasicThreadFactory.Builder().namingPattern("CSThread-%d").build(),
+        new BasicThreadFactory.Builder().namingPattern("CommandServiceThread-%d").build(),
         new ThreadPoolExecutor.AbortPolicy());
   }
 
