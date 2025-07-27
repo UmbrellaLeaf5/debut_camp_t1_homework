@@ -1,0 +1,9 @@
+{
+  "type": "/api/errors#500",
+  "title": "Internal Server Error",
+  "status": 500,
+  "detail": "Internal server error",
+  "instance": "/actuator/non_existing",
+  "errorType": "NoResourceFoundException",
+  "timestamp": "2025-07-27T22:22:30.098317161Z"
+}
