@@ -9,7 +9,7 @@
 ---
 
 - [source code](./homework_1/)
-- [output](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/tree/output/homework_1/logs)
+- [output (logs)](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/tree/output/homework_1/logs)
 
 ## homework_2 (Microservices)
 
@@ -29,4 +29,4 @@
 ---
 
 - [source code](./homework_3/)
-- [output](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/tree/output/homework_3/logs)
+- [output (logs)](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/tree/output/homework_3/logs)

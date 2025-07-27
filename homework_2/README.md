@@ -1,5 +1,14 @@
 # Домашнее задание 2 - Разработка Backend Java
 
+- [README.md](./homework_2/README.md)
+
+---
+
+- [svg](https://umbrellaleaf5.github.io/debut_camp_t1_homework/homework_2.svg)
+- [html](https://umbrellaleaf5.github.io/debut_camp_t1_homework/homework_2.html)
+- [png](https://umbrellaleaf5.github.io/debut_camp_t1_homework/homework_2.png)
+- [drawio](https://umbrellaleaf5.github.io/debut_camp_t1_homework/homework_2.drawio)
+
 Руководство технологического гиганта решило реализовать социально-значимый проект по цифровизации городских библиотек.
 
 Библиотеки выполняют следующие задачи: ведут картотеку пользователей и книг, ведут учет выданных и возвращенных книг, отправляют напоминания пользователям, которые не вернули книги своевременно, формируют график выдачи книг, взимают плату за испорченные книги.
