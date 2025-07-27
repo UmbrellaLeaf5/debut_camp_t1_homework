@@ -3,7 +3,8 @@ import sys
 import requests
 
 
-url = "http://localhost:8080/command"
+
+url = "http://localhost:8082/command"
 params = {
   "commandType": "ENGINE",
   "initiator": "WAYLAND_YUTANI_OFFICER",
