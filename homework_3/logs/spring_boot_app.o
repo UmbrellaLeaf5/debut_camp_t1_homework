@@ -7,26 +7,26 @@
 
  :: Spring Boot ::                (v3.3.0)
 
-2025-07-27T20:37:38.604Z  INFO 4262 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Starting BishopMain v1.0 using Java 17.0.16 with PID 4262 (/home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3/bishop-prototype/target/bishop-prototype-1.0.jar started by runner in /home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3)
-2025-07-27T20:37:38.608Z  INFO 4262 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : No active profile set, falling back to 1 default profile: "default"
-2025-07-27T20:37:40.516Z  INFO 4262 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
-2025-07-27T20:37:40.527Z  INFO 4262 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-07-27T20:37:40.527Z  INFO 4262 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
-2025-07-27T20:37:40.569Z  INFO 4262 --- [bishop-prototype] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-07-27T20:37:40.570Z  INFO 4262 --- [bishop-prototype] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1832 ms
-2025-07-27T20:37:41.738Z  INFO 4262 --- [bishop-prototype] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 7 endpoints beneath base path '/actuator'
-2025-07-27T20:37:41.882Z  INFO 4262 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
-2025-07-27T20:37:41.903Z  INFO 4262 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Started BishopMain in 3.932 seconds (process running for 4.44)
-2025-07-27T20:37:56.557Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-07-27T20:37:56.558Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-07-27T20:37:56.559Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-07-27T20:37:57.655Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] i.g.U.s.c.c.e.SynthCommandLoggerExecutor : Start executing command...
+2025-07-27T20:51:48.967Z  INFO 4195 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Starting BishopMain v1.0 using Java 17.0.16 with PID 4195 (/home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3/bishop-prototype/target/bishop-prototype-1.0.jar started by runner in /home/runner/work/debut_camp_t1_homework/debut_camp_t1_homework/homework_3)
+2025-07-27T20:51:48.974Z  INFO 4195 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : No active profile set, falling back to 1 default profile: "default"
+2025-07-27T20:51:50.895Z  INFO 4195 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2025-07-27T20:51:50.904Z  INFO 4195 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-27T20:51:50.904Z  INFO 4195 --- [bishop-prototype] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
+2025-07-27T20:51:50.945Z  INFO 4195 --- [bishop-prototype] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-27T20:51:50.946Z  INFO 4195 --- [bishop-prototype] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1866 ms
+2025-07-27T20:51:52.309Z  INFO 4195 --- [bishop-prototype] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 7 endpoints beneath base path '/actuator'
+2025-07-27T20:51:52.436Z  INFO 4195 --- [bishop-prototype] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2025-07-27T20:51:52.457Z  INFO 4195 --- [bishop-prototype] [           main] io.github.UmbrellaLeaf5.BishopMain       : Started BishopMain in 4.275 seconds (process running for 4.781)
+2025-07-27T20:52:05.220Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-27T20:52:05.220Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-27T20:52:05.221Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-07-27T20:52:06.322Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] i.g.U.s.c.c.e.SynthCommandLoggerExecutor : Start executing command...
 	Command from - WAYLAND_YUTANI_OFFICER
-	registered at - 2025-07-27T20:37:56.613985423Z
+	registered at - 2025-07-27T20:52:05.268556444Z
 	description - Processing engine... Try to fix...
 	priority - CRITICAL
 End executing command...
-2025-07-27T20:37:57.679Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+2025-07-27T20:52:06.353Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
 	acks = -1
 	auto.include.jmx.reporter = true
 	batch.size = 16384
@@ -118,12 +118,12 @@ End executing command...
 	transactional.id = null
 	value.serializer = class org.springframework.kafka.support.serializer.JsonSerializer
 
-2025-07-27T20:37:57.707Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
-2025-07-27T20:37:57.729Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=bishop-prototype-producer-1] Instantiated an idempotent producer.
-2025-07-27T20:37:57.774Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.7.0
-2025-07-27T20:37:57.774Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 2ae524ed625438c5
-2025-07-27T20:37:57.775Z  INFO 4262 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1753648677772
-2025-07-27T20:37:58.195Z  WARN 4262 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 1 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
-2025-07-27T20:37:58.197Z  INFO 4262 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=bishop-prototype-producer-1] Cluster ID: ztcXq0GmQ3u1HW4wj2lOrw
-2025-07-27T20:37:58.339Z  INFO 4262 --- [bishop-prototype] [type-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=bishop-prototype-producer-1] ProducerId set to 0 with epoch 0
-2025-07-27T20:37:58.345Z  WARN 4262 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 6 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
+2025-07-27T20:52:06.389Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+2025-07-27T20:52:06.408Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=bishop-prototype-producer-1] Instantiated an idempotent producer.
+2025-07-27T20:52:06.456Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.7.0
+2025-07-27T20:52:06.457Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 2ae524ed625438c5
+2025-07-27T20:52:06.457Z  INFO 4195 --- [bishop-prototype] [nio-8082-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1753649526455
+2025-07-27T20:52:06.801Z  WARN 4195 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 1 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
+2025-07-27T20:52:06.803Z  INFO 4195 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=bishop-prototype-producer-1] Cluster ID: WU-N8dOuT_-Bv2vLV_otDg
+2025-07-27T20:52:06.934Z  INFO 4195 --- [bishop-prototype] [type-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=bishop-prototype-producer-1] ProducerId set to 0 with epoch 0
+2025-07-27T20:52:06.940Z  WARN 4195 --- [bishop-prototype] [type-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=bishop-prototype-producer-1] Error while fetching metadata with correlation id 6 : {bishop_audit_topic=LEADER_NOT_AVAILABLE}
