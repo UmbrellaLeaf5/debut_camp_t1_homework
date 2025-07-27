@@ -73,12 +73,18 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Python requests and loguru
-        run: pip install requests loguru
+      - name: Install Python dependencies
+        working-directory: ./homework_3/python
+        run: pip install -r requirements.txt
 
-      - name: Send request
+      - name: Send requests
         working-directory: ./homework_3
-        run: python python/request.py
+        run: |
+          touch python/__init__.py
+          touch python/requests/__init__.py
+
+          python -m python.requests.post
+          python -m python.requests.get
 
       - name: Stop Spring Boot application
         if: always()
@@ -99,6 +105,8 @@ jobs:
           mkdir -p ./homework_3/logs
           cp ./homework_3/*.o ./homework_3/logs/ || true
           cp ./homework_3/*.e ./homework_3/logs/ || true
+
+          cp -r ./homework_3/requests ./homework_3/logs/ || true
 
           git add ./homework_3/logs/
 

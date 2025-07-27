@@ -1,6 +1,6 @@
 package io.github.UmbrellaLeaf5.synth.core.command.executor;
 
-import io.github.UmbrellaLeaf5.synth.core.command.model.SynthCommand;
+import io.github.UmbrellaLeaf5.synth.core.command.SynthCommand;
 import io.github.UmbrellaLeaf5.synth.core.metrics.SyntheticHumanMetricService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

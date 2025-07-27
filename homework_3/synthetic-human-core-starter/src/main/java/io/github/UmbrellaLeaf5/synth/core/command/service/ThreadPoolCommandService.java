@@ -1,7 +1,7 @@
 package io.github.UmbrellaLeaf5.synth.core.command.service;
 
+import io.github.UmbrellaLeaf5.synth.core.command.SynthCommand;
 import io.github.UmbrellaLeaf5.synth.core.command.executor.SynthCommandExecutor;
-import io.github.UmbrellaLeaf5.synth.core.command.model.SynthCommand;
 import io.github.UmbrellaLeaf5.synth.core.command.properties.CommandConfigurationProperties;
 import io.github.UmbrellaLeaf5.synth.core.command.service.exception.ExecutionQueueIsFullException;
 import io.github.UmbrellaLeaf5.synth.core.command.validator.SynthCommandValidator;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class ThreadPoolCommandService implements CommandService {
+public class ThreadPoolCommandService {
   private final SynthCommandValidator synthCommandValidator;
   private final SynthCommandExecutor synthCommandExecutor;
   private final ThreadPoolExecutor threadPoolExecutor;
@@ -37,10 +37,14 @@ public class ThreadPoolCommandService implements CommandService {
     final CommandConfigurationProperties.ThreadPoolExecutorProperties poolProperties =
         commandConfigurationProperties.getPoolProperties();
 
-    this.threadPoolExecutor = new ThreadPoolExecutor(poolProperties.getMinSize(),
-        poolProperties.getMaxSize(), poolProperties.getIdleThreadKeepAliveTime(),
-        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(poolProperties.getQueueCapacity()),
-        new BasicThreadFactory.Builder().namingPattern("CSThread-%d").build(),
+    this.threadPoolExecutor = new ThreadPoolExecutor( //
+        poolProperties.getMinSize(), //
+        poolProperties.getMaxSize(), //
+        poolProperties.getIdleThreadKeepAliveTime(),
+        TimeUnit.MILLISECONDS, //
+        new LinkedBlockingQueue<>(poolProperties.getQueueCapacity()), //
+        // у всех сервисов будет четкое имя CommandServiceThread
+        new BasicThreadFactory.Builder().namingPattern("CommandServiceThread-%d").build(),
         new ThreadPoolExecutor.AbortPolicy());
   }
 

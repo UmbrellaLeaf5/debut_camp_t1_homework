@@ -1,6 +1,6 @@
 package io.github.UmbrellaLeaf5.synth.core.command.validator;
 
-import io.github.UmbrellaLeaf5.synth.core.command.model.SynthCommand;
+import io.github.UmbrellaLeaf5.synth.core.command.SynthCommand;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;

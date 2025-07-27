@@ -10,9 +10,4 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuditConfigurationProperties {
   @NotNull public AuditMode mode = AuditMode.CONSOLE;
-
-  // TODO какие идеи по валидации тут?
-  public String topic;
-
-  public enum AuditMode { KAFKA, CONSOLE }
 }

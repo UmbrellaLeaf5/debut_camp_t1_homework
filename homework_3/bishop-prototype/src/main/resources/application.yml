@@ -5,7 +5,8 @@ synth:
   core:
     audit:
       mode: kafka
-      topic: bishop_audit_topic
+      kafka:
+        topic: bishop_audit_topic
 
 spring:
   application:
@@ -50,4 +51,4 @@ management:
 
 logging:
   level:
-    "[ru.t1.synth.core.errorhandling]": debug
+    "[io.github.UmbrellaLeaf5.synth.core.error.handling]": debug

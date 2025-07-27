@@ -1,7 +1,7 @@
 package io.github.UmbrellaLeaf5.api;
 
 import io.github.UmbrellaLeaf5.command.exception.UnavailableCommandException;
-import io.github.UmbrellaLeaf5.synth.core.errorhandling.SyntheticHumanGlobalExceptionHandler;
+import io.github.UmbrellaLeaf5.synth.core.error.handling.SyntheticHumanGlobalExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
