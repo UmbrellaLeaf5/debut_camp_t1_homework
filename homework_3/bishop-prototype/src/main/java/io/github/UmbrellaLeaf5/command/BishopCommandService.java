@@ -6,7 +6,7 @@ import io.github.UmbrellaLeaf5.command.exception.UnavailableCommandException;
 import io.github.UmbrellaLeaf5.synth.core.audit.aspect.WaylandWatchingYou;
 import io.github.UmbrellaLeaf5.synth.core.command.model.SynthCommand;
 import io.github.UmbrellaLeaf5.synth.core.command.model.SynthCommandPriority;
-import io.github.UmbrellaLeaf5.synth.core.command.service.CommandService;
+import io.github.UmbrellaLeaf5.synth.core.command.service.ThreadPoolCommandService;
 import io.github.UmbrellaLeaf5.synth.core.command.service.exception.ExecutionQueueIsFullException;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BishopCommandService {
-  private final CommandService commandService;
+  private final ThreadPoolCommandService commandService;
 
   @WaylandWatchingYou
   public void runCommand(CommandType commandType, Initiator initiator)

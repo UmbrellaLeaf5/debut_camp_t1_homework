@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class ThreadPoolCommandService implements CommandService {
+public class ThreadPoolCommandService {
   private final SynthCommandValidator synthCommandValidator;
   private final SynthCommandExecutor synthCommandExecutor;
   private final ThreadPoolExecutor threadPoolExecutor;
