@@ -14,11 +14,11 @@ public class EmailDomainValidator implements ConstraintValidator<NonDisposableEm
     this.blockedEmails =
         blockedEmails.stream().map(String::toLowerCase).collect(Collectors.toSet());
   }
+
   @Override
   public boolean isValid(String email, ConstraintValidatorContext context) {
-    if (email == null || !email.contains("@")) {
+    if (email == null || !email.contains("@"))
       return true;
-    }
 
     final int atIndex = email.indexOf("@") + 1;
     final int dotIndex = email.indexOf(".", atIndex);

@@ -31,7 +31,6 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("api/v1/auth/premium")
                 .hasRole("ADMIN")
-                //@PreAuthorize
                 .requestMatchers("/api/v1/users/me/premium")
                 .hasRole("PREMIUM_USER")
                 .anyRequest()

@@ -14,17 +14,16 @@ public class UserMapper {
 
   public void mergeUserInfo(final User savedUser, final ProfileUpdateRequest request) {
     if (StringUtils.isNotBlank(request.getFirstName())
-        && !savedUser.getFirstName().equals(request.getFirstName())) {
+        && !savedUser.getFirstName().equals(request.getFirstName()))
       savedUser.setFirstName(request.getFirstName());
-    }
+
     if (StringUtils.isNotBlank(request.getLastName())
-        && !savedUser.getLastName().equals(request.getLastName())) {
+        && !savedUser.getLastName().equals(request.getLastName()))
       savedUser.setLastName(request.getLastName());
-    }
+
     if (request.getDateOfBirth() != null
-        && !request.getDateOfBirth().equals(savedUser.getDateOfBirth())) {
+        && !request.getDateOfBirth().equals(savedUser.getDateOfBirth()))
       savedUser.setDateOfBirth(request.getDateOfBirth());
-    }
   }
 
   public User toUser(RegistrationRequest request) {

@@ -40,19 +40,16 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void changePassword(ChangePasswordRequest request, String userId) {
-    if (!request.getNewPassword().equals(request.getNewPasswordConfirm())) {
+    if (!request.getNewPassword().equals(request.getNewPasswordConfirm()))
       throw new BusinessException(ErrorCode.CHANGE_PASSWORD_MISMATCH);
-    }
 
     final User savedUser = userRepository.findById(userId).orElseThrow(
         () -> new BusinessException(ErrorCode.USER_NOT_FOUND, userId));
 
-    if (!this.passwordEncoder.matches(request.getOldPassword(), savedUser.getPassword())) {
+    if (!this.passwordEncoder.matches(request.getOldPassword(), savedUser.getPassword()))
       throw new BusinessException(ErrorCode.INVALID_CURRENT_PASSWORD);
-    }
 
-    final String encodedPassword = passwordEncoder.encode(request.getNewPassword());
-    savedUser.setPassword(encodedPassword);
+    savedUser.setPassword(passwordEncoder.encode(request.getNewPassword()));
     this.userRepository.save(savedUser);
   }
 
@@ -61,9 +58,9 @@ public class UserServiceImpl implements UserService {
     final User savedUser = userRepository.findById(userId).orElseThrow(
         () -> new BusinessException(ErrorCode.USER_NOT_FOUND, userId));
 
-    if (!savedUser.isEnabled()) {
+    if (!savedUser.isEnabled())
       throw new BusinessException(ErrorCode.ACCOUNT_ALREADY_DEACTIVATED);
-    }
+
     savedUser.setEnabled(false);
     this.userRepository.save(savedUser);
   }
@@ -73,9 +70,9 @@ public class UserServiceImpl implements UserService {
     final User savedUser = userRepository.findById(userId).orElseThrow(
         () -> new BusinessException(ErrorCode.USER_NOT_FOUND, userId));
 
-    if (savedUser.isEnabled()) {
+    if (savedUser.isEnabled())
       throw new BusinessException(ErrorCode.ACCOUNT_ALREADY_ACTIVATED);
-    }
+
     savedUser.setEnabled(true);
     this.userRepository.save(savedUser);
   }

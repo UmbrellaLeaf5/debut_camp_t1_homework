@@ -16,8 +16,10 @@ public class KeyUtils {
                            .replace("-----BEGIN PRIVATE KEY-----", "")
                            .replace("-----END PRIVATE KEY-----", "")
                            .replaceAll("\\s+", "");
+
     final byte[] decoded = Base64.getDecoder().decode(key);
     final PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
+
     return KeyFactory.getInstance("RSA").generatePrivate(keySpec);
   }
 
@@ -26,16 +28,18 @@ public class KeyUtils {
                            .replace("-----BEGIN PUBLIC KEY-----", "")
                            .replace("-----END PUBLIC KEY-----", "")
                            .replaceAll("\\s+", "");
+
     final byte[] decoded = Base64.getDecoder().decode(key);
     final X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decoded);
+
     return KeyFactory.getInstance("RSA").generatePublic(keySpec);
   }
 
   private static String readKeyFromResource(String pemPath) throws Exception {
     try (final InputStream is = KeyUtils.class.getClassLoader().getResourceAsStream(pemPath)) {
-      if (is == null) {
+      if (is == null)
         throw new IllegalArgumentException("file not found: " + pemPath);
-      }
+
       return new String(is.readAllBytes());
     }
   }

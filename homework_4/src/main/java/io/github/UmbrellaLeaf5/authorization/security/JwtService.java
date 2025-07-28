@@ -20,17 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
   private static final String TOKEN_TYPE = "token_type";
-
   private static final String ROLES = "role_list";
-
   private final PrivateKey privateKey;
-
   private final PublicKey publicKey;
-
   private final AccessTokenRepository accessTokenRepository;
-
   private final RefreshTokenRepository refreshTokenRepository;
-
   private final UserRepository userRepository;
 
   @Value("${security.jwt.access_token_expiration}") private long accessTokenExpiration;
@@ -88,19 +82,19 @@ public class JwtService {
   public boolean validateToken(final String token, final String expectedUserName) {
     final String userName = extractUserName(token);
     return userName.equals(expectedUserName) && !isTokenExpired(token)
-        && !isAccessTokenWithdrown(token, userName);
+        && !isAccessTokenWithdrawn(token, userName);
   }
 
   private boolean isTokenExpired(String token) {
     return extractClaims(token).getExpiration().before(new Date());
   }
 
-  private boolean isRefreshTokenWithdrown(String refreshToken, String userName) {
+  private boolean isRefreshTokenWithdrawn(String refreshToken, String userName) {
     RefreshToken token = this.refreshTokenRepository.findById(userName).orElse(null);
     return token == null || !token.getRefreshToken().equals(refreshToken);
   }
 
-  private boolean isAccessTokenWithdrown(String accessToken, String userName) {
+  private boolean isAccessTokenWithdrawn(String accessToken, String userName) {
     AccessToken token = this.accessTokenRepository.findById(userName).orElse(null);
     return token == null || !token.getAccessToken().contains(accessToken);
   }
@@ -112,6 +106,7 @@ public class JwtService {
   private Claims extractClaims(String token) {
     try {
       return Jwts.parser().verifyWith(publicKey).build().parseSignedClaims(token).getPayload();
+
     } catch (final JwtException ex) {
       throw new RuntimeException("Invalid JWT token", ex);
     }
@@ -120,12 +115,12 @@ public class JwtService {
   public String refreshToken(final String refreshToken) {
     final Claims claims = extractClaims(refreshToken);
     final String userName = claims.getSubject();
-    if (!"REFRESH_TOKEN".equals(claims.get(TOKEN_TYPE))) {
+    if (!"REFRESH_TOKEN".equals(claims.get(TOKEN_TYPE)))
       throw new RuntimeException("Invalid refresh token");
-    }
-    if (isTokenExpired(refreshToken) || isRefreshTokenWithdrown(refreshToken, userName)) {
+
+    if (isTokenExpired(refreshToken) || isRefreshTokenWithdrawn(refreshToken, userName))
       throw new RuntimeException("Refresh token expired");
-    }
+
     return generateAccessToken(userName);
   }
 }

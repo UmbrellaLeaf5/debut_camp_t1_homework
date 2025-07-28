@@ -37,66 +37,71 @@ public class ApplicationExceptionHandler {
 
   @ExceptionHandler(DisabledException.class)
   public ResponseEntity<ErrorResponse> handleDisabledException(final DisabledException e) {
-    final ErrorResponse body = ErrorResponse.builder()
-                                   .message(e.getMessage())
-                                   .code(ErrorCode.ERR_USER_DISABLED.getCode())
-                                   .build();
-    return ResponseEntity.status(ErrorCode.ERR_USER_DISABLED.getStatus()).body(body);
+    return ResponseEntity.status(ErrorCode.ERR_USER_DISABLED.getStatus())
+        .body(ErrorResponse.builder()
+                .message(e.getMessage())
+                .code(ErrorCode.ERR_USER_DISABLED.getCode())
+                .build());
   }
 
   @ExceptionHandler(BadCredentialsException.class)
   public ResponseEntity<ErrorResponse> handleBadCredentialsException(
       final BadCredentialsException e) {
     log.debug(e.getMessage(), e);
-    final ErrorResponse body = ErrorResponse.builder()
-                                   .message(ErrorCode.BAD_CREDENTIALS.getDefaultMessage())
-                                   .code(ErrorCode.BAD_CREDENTIALS.getCode())
-                                   .build();
-    return ResponseEntity.status(ErrorCode.BAD_CREDENTIALS.getStatus()).body(body);
+
+    return ResponseEntity.status(ErrorCode.BAD_CREDENTIALS.getStatus())
+        .body(ErrorResponse.builder()
+                .message(ErrorCode.BAD_CREDENTIALS.getDefaultMessage())
+                .code(ErrorCode.BAD_CREDENTIALS.getCode())
+                .build());
   }
 
   @ExceptionHandler(UsernameNotFoundException.class)
   public ResponseEntity<ErrorResponse> handleUsernameNotFoundException(
       final UsernameNotFoundException e) {
-    final ErrorResponse body = ErrorResponse.builder()
-                                   .message(ErrorCode.USERNAME_NOT_FOUND.getDefaultMessage())
-                                   .code(ErrorCode.USERNAME_NOT_FOUND.getCode())
-                                   .build();
-    return ResponseEntity.status(ErrorCode.USERNAME_NOT_FOUND.getStatus()).body(body);
+    return ResponseEntity.status(ErrorCode.USERNAME_NOT_FOUND.getStatus())
+        .body(ErrorResponse.builder()
+                .message(ErrorCode.USERNAME_NOT_FOUND.getDefaultMessage())
+                .code(ErrorCode.USERNAME_NOT_FOUND.getCode())
+                .build());
   }
 
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<ErrorResponse> handleEntityNotFoundException(
       final EntityNotFoundException e) {
     log.debug(e.getMessage(), e);
-    final ErrorResponse body = ErrorResponse.builder()
-                                   .message(e.getMessage())
-                                   .code(HttpStatus.NOT_FOUND.toString())
-                                   .build();
-    return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+
+    return new ResponseEntity<>(ErrorResponse.builder()
+                                    .message(e.getMessage())
+                                    .code(HttpStatus.NOT_FOUND.toString())
+                                    .build(),
+        HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
       final MethodArgumentNotValidException e) {
     final List<ValidationError> errors = new ArrayList<>();
+
     e.getBindingResult().getAllErrors().forEach(error -> {
       final String fieldName = ((FieldError) error).getField();
       final String errorCode = error.getDefaultMessage();
       errors.add(
           ValidationError.builder().field(fieldName).message(errorCode).code(errorCode).build());
     });
-    final ErrorResponse errorResponse = ErrorResponse.builder().validationErrors(errors).build();
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(ErrorResponse.builder().validationErrors(errors).build());
   }
 
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleException(final Exception e) {
     log.error(e.getMessage(), e);
-    final ErrorResponse body = ErrorResponse.builder()
-                                   .message(ErrorCode.INTERNAL_EXCEPRION.getDefaultMessage())
-                                   .code(ErrorCode.INTERNAL_EXCEPRION.getCode())
-                                   .build();
-    return ResponseEntity.status(ErrorCode.INTERNAL_EXCEPRION.getStatus()).body(body);
+
+    return ResponseEntity.status(ErrorCode.INTERNAL_EXCEPRION.getStatus())
+        .body(ErrorResponse.builder()
+                .message(ErrorCode.INTERNAL_EXCEPRION.getDefaultMessage())
+                .code(ErrorCode.INTERNAL_EXCEPRION.getCode())
+                .build());
   }
 }

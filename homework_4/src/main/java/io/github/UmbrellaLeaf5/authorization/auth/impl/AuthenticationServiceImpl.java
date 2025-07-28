@@ -57,20 +57,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   public void register(RegistrationRequest request) {
     checkUserEmail(request.getEmail());
     checkPasswords(request.getPassword(), request.getConfirmPassword());
+
     final Role userRole;
-    if (request.getEmail() != null && request.getEmail().contains("admin")) {
+
+    if (request.getEmail() != null && request.getEmail().contains("admin"))
       userRole = this.roleRepository.findByName("ROLE_ADMIN")
                      .orElseThrow(() -> new EntityNotFoundException("Role does not exist"));
-    } else {
+    else
       userRole = this.roleRepository.findByName("ROLE_GUEST")
                      .orElseThrow(() -> new EntityNotFoundException("Role does not exist"));
-    }
+
     final List<Role> roles = new ArrayList<>();
     roles.add(userRole);
 
     final User user = this.userMapper.toUser(request);
     user.setRoles(roles);
+
     log.debug("Register user: {}", user);
+
     this.userRepository.save(user);
     log.debug("Registered user: {}", user);
   }
@@ -79,6 +83,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   public AuthenticationResponse refreshToken(RefreshRequest request) {
     final String newAccessToken = this.jwtService.refreshToken(request.getRefreshToken());
     final String tokenType = "Bearer";
+
     return AuthenticationResponse.builder()
         .accessToken(newAccessToken)
         .refreshToken(request.getRefreshToken())
@@ -105,15 +110,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   }
 
   private void checkPasswords(String password, String confirmPassword) {
-    if (password == null || !password.equals(confirmPassword)) {
+    if (password == null || !password.equals(confirmPassword))
       throw new BusinessException(ErrorCode.PASSWORD_MISMATCH);
-    }
   }
 
   private void checkUserEmail(String email) {
-    final boolean emailExists = this.userRepository.findByEmailIgnoreCase(email).isPresent();
-    if (emailExists) {
+    if (this.userRepository.findByEmailIgnoreCase(email).isPresent())
       throw new BusinessException(ErrorCode.EMAIL_ALREADY_EXISTS);
-    }
   }
 }
