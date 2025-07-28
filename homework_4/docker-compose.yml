@@ -1,0 +1,26 @@
+services:
+  redis:
+    image: redis:8.0.3
+    container_name: jwt_assymetric_cache
+    ports:
+      - "${REDIS_PORT}:${REDIS_DOCKER_PORT}"
+    volumes:
+      - redis_data:/data
+    restart: always
+  pg_db:
+    container_name: jwt_assymetric_db
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - db:/var/lib/postgresql/data postgres
+    profiles:
+      - pg_local
+    ports:
+      - "${DB_PORT}:${DB_DOCKER_PORT}"
+volumes:
+  db:
+  redis_data:
