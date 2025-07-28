@@ -1,10 +1,10 @@
 # Домашнее задание 1 - Разработка Backend Java
 
-- [README.md](./homework_1/README.md)
+- [README.md](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/blob/main/homework_1/README.md)
 
 ---
 
-- [source code](./homework_1/)
+- [source code](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/blob/main/homework_1/)
 - [output (logs)](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/tree/output/homework_1/logs)
 
 Лето! а погода - то ноябрь, то жара. Не всем это нравится. Но страна у нас большая. Маша работает над приложением для комфортного путешествия и при этом любит интересные новые места. Ей пришла в голову мысль получать данные о метеорологии в текущем времени и выбирать направление для путешествия прямо в текущий момент.

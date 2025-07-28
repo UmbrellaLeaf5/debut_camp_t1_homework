@@ -1,10 +1,10 @@
 # Домашнее задание 3 - Разработка Backend Java
 
-- [README.md](./homework_3/README.md)
+- [README.md](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/blob/main/homework_3/README.md)
 
 ---
 
-- [source code](./homework_3/)
+- [source code](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/blob/main/homework_3/)
 - [output (logs)](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/tree/output/homework_3/logs)
 
 ## Секретное задание для инженера Wayland-Yutani

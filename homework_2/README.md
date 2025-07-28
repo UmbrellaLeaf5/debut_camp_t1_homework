@@ -1,6 +1,6 @@
 # Домашнее задание 2 - Разработка Backend Java
 
-- [README.md](./homework_2/README.md)
+- [README.md](https://github.com/UmbrellaLeaf5/debut_camp_t1_homework/blob/main/homework_2/README.md)
 
 ---
 
