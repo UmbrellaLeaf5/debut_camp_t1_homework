@@ -1,14 +1,14 @@
 services:
   redis:
     image: redis:8.0.3
-    container_name: jwt_assymetric_cache
+    container_name: authorization_cache
     ports:
       - "${REDIS_PORT}:${REDIS_DOCKER_PORT}"
     volumes:
       - redis_data:/data
     restart: always
   pg_db:
-    container_name: jwt_assymetric_db
+    container_name: authorization_db
     image: postgres
     restart: always
     environment:

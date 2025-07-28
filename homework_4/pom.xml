@@ -9,11 +9,9 @@
         <version>3.5.3</version>
         <relativePath />
     </parent>
-    <groupId>ru.t1</groupId>
-    <artifactId>jwt_assymetric</artifactId>
+    <groupId>io.github.UmbrellaLeaf5</groupId>
+    <artifactId>homework_4</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jwt_assymetric</name>
-    <description>jwt_assymetric</description>
     <url />
     <licenses>
         <license />
